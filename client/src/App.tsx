@@ -11,7 +11,7 @@ import { ErrorDisplay } from "@/components/ErrorDisplay";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import type { Question, QuizSession, QuizResult, AnswerSubmission } from "@shared/schema";
+import type { Question, QuizSession, QuizResult, AnswerSubmission, QuizModule } from "@shared/schema";
 
 type AppState = "home" | "quiz" | "results";
 
@@ -23,15 +23,16 @@ function QuizApp() {
   const [currentScore, setCurrentScore] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [questions, setQuestions] = useState<QuestionWithoutAnswer[]>([]);
+  const [selectedModule, setSelectedModule] = useState<QuizModule>("misto");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
   const startQuizMutation = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (module: QuizModule) => {
       const response = await apiRequest(
         "POST", 
         "/api/quiz/start", 
-        {}
+        { module }
       );
       return await response.json() as { session: QuizSession; questions: QuestionWithoutAnswer[] };
     },
@@ -71,8 +72,9 @@ function QuizApp() {
     },
   });
 
-  const handleStartQuiz = () => {
-    startQuizMutation.mutate();
+  const handleStartQuiz = (module: QuizModule) => {
+    setSelectedModule(module);
+    startQuizMutation.mutate(module);
   };
 
   const handleAnswer = async (questionIndex: number, selectedAnswer: number, timeSpent: number): Promise<QuizResult> => {
