@@ -1,13 +1,15 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { answerSubmissionSchema, quizResultSchema } from "@shared/schema";
+import { answerSubmissionSchema, quizResultSchema, quizStartRequestSchema, type QuizResult } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/quiz/start", async (req, res) => {
     try {
-      const questions = await storage.getAllQuestions();
+      const { module } = quizStartRequestSchema.parse(req.body);
+      
+      const questions = await storage.getQuestionsByModule(module);
       const selectedQuestions = questions
         .sort(() => Math.random() - 0.5)
         .slice(0, 10);
@@ -20,6 +22,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         questionIds: selectedQuestions.map(q => q.id),
         answers: Array.from({ length: selectedQuestions.length }, () => ""),
         isComplete: false,
+        module,
       });
 
       const questionsWithoutAnswers = selectedQuestions.map(q => ({
@@ -36,6 +39,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         questions: questionsWithoutAnswers,
       });
     } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid request data", details: error.errors });
+      }
       console.error("Error starting quiz:", error);
       res.status(500).json({ error: "Failed to start quiz" });
     }
