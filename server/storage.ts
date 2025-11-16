@@ -1,8 +1,9 @@
-import { type Question, type InsertQuestion, type QuizSession, type InsertQuizSession } from "@shared/schema";
+import { type Question, type InsertQuestion, type QuizSession, type InsertQuizSession, type QuizModule } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
   getAllQuestions(): Promise<Question[]>;
+  getQuestionsByModule(module: QuizModule): Promise<Question[]>;
   getQuestion(id: string): Promise<Question | undefined>;
   createQuestion(question: InsertQuestion): Promise<Question>;
   
@@ -35,7 +36,8 @@ export class MemStorage implements IStorage {
         category: "Regulamentos ANAC",
         difficulty: "medium",
         explanation: "No Brasil, a altitude de transição é FL180 (18.000 pés), acima da qual se usa nível de voo.",
-        timeLimit: 20
+        timeLimit: 20,
+        module: "misto"
       },
       {
         question: "O que significa a sigla VMC em aviação?",
@@ -49,7 +51,8 @@ export class MemStorage implements IStorage {
         category: "Meteorologia",
         difficulty: "easy",
         explanation: "VMC significa Visual Meteorological Conditions (Condições Meteorológicas Visuais).",
-        timeLimit: 15
+        timeLimit: 15,
+        module: "misto"
       },
       {
         question: "Qual a velocidade do som ao nível do mar (Mach 1)?",
@@ -63,7 +66,8 @@ export class MemStorage implements IStorage {
         category: "Aerodinâmica",
         difficulty: "medium",
         explanation: "A velocidade do som ao nível do mar é aproximadamente 661 nós (1.225 km/h).",
-        timeLimit: 20
+        timeLimit: 20,
+        module: "misto"
       },
       {
         question: "O que é o efeito de solo em aviação?",
@@ -77,7 +81,8 @@ export class MemStorage implements IStorage {
         category: "Aerodinâmica",
         difficulty: "medium",
         explanation: "O efeito de solo aumenta a sustentação quando a aeronave está próxima ao solo, devido à redução do arrasto induzido.",
-        timeLimit: 20
+        timeLimit: 20,
+        module: "misto"
       },
       {
         question: "Qual a frequência de emergência internacional?",
@@ -91,7 +96,8 @@ export class MemStorage implements IStorage {
         category: "Navegação",
         difficulty: "easy",
         explanation: "121.5 MHz é a frequência internacional de emergência para aviação civil.",
-        timeLimit: 15
+        timeLimit: 15,
+        module: "misto"
       },
       {
         question: "O que significa a luz vermelha constante da torre de controle?",
@@ -105,7 +111,8 @@ export class MemStorage implements IStorage {
         category: "Procedimentos",
         difficulty: "hard",
         explanation: "Luz vermelha constante significa: em voo - dê passagem a outras aeronaves e continue circulando; no solo - pare.",
-        timeLimit: 25
+        timeLimit: 25,
+        module: "misto"
       },
       {
         question: "Qual a visibilidade mínima para voo VFR diurno abaixo de 10.000 pés?",
@@ -119,7 +126,8 @@ export class MemStorage implements IStorage {
         category: "Meteorologia",
         difficulty: "medium",
         explanation: "A visibilidade mínima para voo VFR diurno abaixo de 10.000 pés é de 5 km.",
-        timeLimit: 20
+        timeLimit: 20,
+        module: "misto"
       },
       {
         question: "O que é o número de Mach?",
@@ -133,7 +141,8 @@ export class MemStorage implements IStorage {
         category: "Aerodinâmica",
         difficulty: "easy",
         explanation: "O número de Mach é a razão entre a velocidade da aeronave e a velocidade do som no meio em que ela está voando.",
-        timeLimit: 15
+        timeLimit: 15,
+        module: "misto"
       },
       {
         question: "Qual o significado da marcação de pista 09/27?",
@@ -147,7 +156,8 @@ export class MemStorage implements IStorage {
         category: "Navegação",
         difficulty: "medium",
         explanation: "09/27 indica que a pista pode ser usada no rumo magnético 090° (leste) ou 270° (oeste).",
-        timeLimit: 20
+        timeLimit: 20,
+        module: "misto"
       },
       {
         question: "O que é hipóxia em aviação?",
@@ -161,18 +171,37 @@ export class MemStorage implements IStorage {
         category: "Fisiologia de Voo",
         difficulty: "easy",
         explanation: "Hipóxia é a deficiência de oxigênio nos tecidos do corpo, comum em voos em grandes altitudes sem pressurização adequada.",
-        timeLimit: 15
+        timeLimit: 15,
+        module: "misto"
       }
     ];
 
     aviationQuestions.forEach(q => {
       const id = randomUUID();
-      this.questions.set(id, { ...q, id });
+      const question: Question = {
+        ...q,
+        id,
+        module: q.module ?? "misto",
+        moduleDescription: q.moduleDescription ?? null,
+        explanation: q.explanation ?? null,
+        timeLimit: q.timeLimit ?? 20,
+      };
+      this.questions.set(id, question);
     });
   }
 
   async getAllQuestions(): Promise<Question[]> {
     return Array.from(this.questions.values());
+  }
+
+  async getQuestionsByModule(module: QuizModule): Promise<Question[]> {
+    const allQuestions = Array.from(this.questions.values());
+    
+    if (module === "misto") {
+      return allQuestions;
+    }
+    
+    return allQuestions.filter(q => q.module === module);
   }
 
   async getQuestion(id: string): Promise<Question | undefined> {
@@ -181,7 +210,14 @@ export class MemStorage implements IStorage {
 
   async createQuestion(insertQuestion: InsertQuestion): Promise<Question> {
     const id = randomUUID();
-    const question: Question = { ...insertQuestion, id };
+    const question: Question = {
+      ...insertQuestion,
+      id,
+      module: insertQuestion.module ?? "misto",
+      moduleDescription: insertQuestion.moduleDescription ?? null,
+      explanation: insertQuestion.explanation ?? null,
+      timeLimit: insertQuestion.timeLimit ?? 20,
+    };
     this.questions.set(id, question);
     return question;
   }
@@ -193,6 +229,11 @@ export class MemStorage implements IStorage {
       id,
       startedAt: new Date(),
       completedAt: null,
+      module: insertSession.module ?? "misto",
+      currentQuestionIndex: insertSession.currentQuestionIndex ?? 0,
+      score: insertSession.score ?? 0,
+      correctAnswers: insertSession.correctAnswers ?? 0,
+      isComplete: insertSession.isComplete ?? false,
     };
     this.quizSessions.set(id, session);
     return session;
