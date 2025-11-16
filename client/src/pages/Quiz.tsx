@@ -150,7 +150,7 @@ export default function Quiz({ questions, onAnswer, onComplete, currentScore, mo
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
               {currentQuestion.options.map((option, index) => (
                 <AnswerButton
                   key={index}

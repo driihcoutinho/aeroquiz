@@ -66,8 +66,8 @@ export function AnswerButton({
         onClick={onSelect}
         disabled={disabled}
         className={`
-          w-full h-auto min-h-[100px] p-4 md:p-6 
-          rounded-2xl text-white font-bold text-sm sm:text-base md:text-lg
+          w-full h-full min-h-[140px] sm:min-h-[160px] md:min-h-[180px] p-3 sm:p-4 md:p-6 
+          rounded-xl md:rounded-2xl text-white font-bold text-xs sm:text-sm md:text-lg
           shadow-lg hover:shadow-xl
           transition-all duration-200
           flex flex-col items-center justify-center gap-2
@@ -81,15 +81,15 @@ export function AnswerButton({
       >
         <motion.div
           animate={getAnimation()}
-          className="flex flex-col items-center gap-2 w-full"
+          className="flex flex-col items-center gap-1.5 sm:gap-2 w-full"
         >
-          <div className="flex items-center gap-2 w-full justify-center">
-            <Shape className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0" data-testid={`icon-shape-${index}`} />
-            <span className="text-xs md:text-sm font-semibold bg-white/20 px-2 py-1 md:px-3 rounded-full" data-testid={`text-label-${index}`}>
+          <div className="flex items-center gap-1.5 sm:gap-2 w-full justify-center">
+            <Shape className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex-shrink-0" data-testid={`icon-shape-${index}`} />
+            <span className="text-xs md:text-sm font-semibold bg-white/20 px-2 py-0.5 md:px-3 md:py-1 rounded-full" data-testid={`text-label-${index}`}>
               {label}
             </span>
           </div>
-          <p className="text-center leading-snug px-2 break-words" data-testid={`text-answer-${index}`}>
+          <p className="text-center leading-tight px-1 sm:px-2 break-words line-clamp-4" data-testid={`text-answer-${index}`}>
             {text}
           </p>
         </motion.div>
