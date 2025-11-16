@@ -56,8 +56,8 @@ export default function Home({ onStartQuiz, isLoading = false }: HomeProps) {
             >
               <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-accent/50">
                 <Sparkles className="w-8 h-8 text-primary" />
-                <span className="text-sm font-semibold text-foreground">10 Perguntas</span>
-                <span className="text-xs text-muted-foreground">Desafio completo</span>
+                <span className="text-sm font-semibold text-foreground">1600 Perguntas</span>
+                <span className="text-xs text-muted-foreground">Banco completo ANAC</span>
               </div>
               <div className="flex flex-col items-center gap-2 p-4 rounded-xl bg-accent/50">
                 <Target className="w-8 h-8 text-primary" />
