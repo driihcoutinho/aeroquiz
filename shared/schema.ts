@@ -3,6 +3,71 @@ import { pgTable, text, varchar, integer, boolean, timestamp } from "drizzle-orm
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
+// Module types
+export const MODULES = [
+  "sistemas-aeronave",
+  "motores",
+  "alimentacao",
+  "estrutura-componentes",
+  "meteorologia-nuvens",
+  "aviacao-civil",
+  "emergencia-seguranca",
+  "primeiros-socorros",
+  "fatores-humanos",
+  "situacoes-codigo",
+  "misto", // Quiz misto (todas as questões)
+] as const;
+
+export type QuizModule = typeof MODULES[number];
+
+// Module metadata
+export const MODULE_INFO: Record<QuizModule, { name: string; description: string }> = {
+  "sistemas-aeronave": {
+    name: "Sistemas da Aeronave",
+    description: "Ar condicionado, oxigênio, proteção contra fogo, degelo, iluminação e piloto automático"
+  },
+  "motores": {
+    name: "Conhecimentos Técnicos - Motores",
+    description: "Motores, combustão, componentes e performance"
+  },
+  "alimentacao": {
+    name: "Sistema de Alimentação",
+    description: "Sistema de alimentação de combustível e componentes"
+  },
+  "estrutura-componentes": {
+    name: "Estrutura e Componentes",
+    description: "Asas, fuselagem, empenagem, controles de voo e trem de pouso"
+  },
+  "meteorologia-nuvens": {
+    name: "Meteorologia - Nuvens",
+    description: "Classificação e tipos de nuvens, formação e características"
+  },
+  "aviacao-civil": {
+    name: "Sistema de Aviação Civil",
+    description: "História, regulamentação e convenções internacionais"
+  },
+  "emergencia-seguranca": {
+    name: "Emergência e Segurança",
+    description: "Comunicação, pressurização, oxigênio, combate ao fogo e evacuação"
+  },
+  "primeiros-socorros": {
+    name: "Primeiros Socorros",
+    description: "Atendimento pré-hospitalar, sinais vitais e avaliação"
+  },
+  "fatores-humanos": {
+    name: "Fatores Humanos",
+    description: "CRM, comunicação, assertividade, modelo SHELL e gestão de conflitos"
+  },
+  "situacoes-codigo": {
+    name: "Situações a Bordo e Código Aeronáutico",
+    description: "Situações especiais a bordo e regulamentação aeronáutica brasileira"
+  },
+  "misto": {
+    name: "Quiz Misto",
+    description: "Questões aleatórias de todos os módulos"
+  }
+};
+
 // Question schema
 export const questions = pgTable("questions", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -13,6 +78,8 @@ export const questions = pgTable("questions", {
   difficulty: text("difficulty").notNull(), // "easy", "medium", "hard"
   explanation: text("explanation"), // Optional explanation for the answer
   timeLimit: integer("time_limit").default(20).notNull(), // seconds
+  module: text("module").notNull().default("misto"), // Module this question belongs to
+  moduleDescription: text("module_description"), // Optional module-specific description
 });
 
 export const insertQuestionSchema = createInsertSchema(questions).omit({
@@ -34,6 +101,7 @@ export const quizSessions = pgTable("quiz_sessions", {
   isComplete: boolean("is_complete").default(false).notNull(),
   startedAt: timestamp("started_at").defaultNow().notNull(),
   completedAt: timestamp("completed_at"),
+  module: text("module").notNull().default("misto"), // Selected module for this quiz
 });
 
 export const insertQuizSessionSchema = createInsertSchema(quizSessions).omit({
@@ -64,6 +132,13 @@ export const quizResultSchema = z.object({
 });
 
 export type QuizResult = z.infer<typeof quizResultSchema>;
+
+// Quiz start request schema
+export const quizStartRequestSchema = z.object({
+  module: z.enum(MODULES).optional().default("misto"),
+});
+
+export type QuizStartRequest = z.infer<typeof quizStartRequestSchema>;
 
 export const quizStartResponseSchema = z.object({
   session: z.custom<QuizSession>(),
