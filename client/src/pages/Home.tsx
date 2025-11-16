@@ -133,7 +133,7 @@ export default function Home({ onStartQuiz, isLoading = false }: HomeProps) {
               className="pt-6 border-t"
             >
               <p className="text-xs text-muted-foreground">
-                Tópicos: Regulamentos ANAC • Meteorologia • Navegação • Procedimentos • Aerodinâmica
+                Conteúdo exclusivo para Comissários de Bordo
               </p>
             </motion.div>
           </div>

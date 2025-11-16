@@ -38,6 +38,14 @@ function QuizApp() {
       return await response.json() as { session: QuizSession; questions: QuestionWithoutAnswer[] };
     },
     onSuccess: (data) => {
+      if (data.questions.length === 0) {
+        toast({
+          title: "Nenhuma questão disponível",
+          description: "Este módulo ainda não possui questões. Tente o Quiz Misto.",
+          variant: "destructive",
+        });
+        return;
+      }
       setSessionId(data.session.id);
       setQuestions(data.questions);
       setCurrentScore(0);

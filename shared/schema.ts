@@ -24,19 +24,19 @@ export type QuizModule = typeof MODULES[number];
 export const MODULE_INFO: Record<QuizModule, { name: string; description: string }> = {
   "sistemas-aeronave": {
     name: "Sistemas da Aeronave",
-    description: "Ar condicionado, oxigênio, proteção contra fogo, degelo, iluminação e piloto automático"
+    description: "Ar condicionado, oxigênio, proteção contra fogo e degelo"
   },
   "motores": {
-    name: "Conhecimentos Técnicos - Motores",
-    description: "Motores, combustão, componentes e performance"
+    name: "Conhecimentos Técnicos",
+    description: "Conhecimentos técnicos gerais sobre aeronaves"
   },
   "alimentacao": {
-    name: "Sistema de Alimentação",
-    description: "Sistema de alimentação de combustível e componentes"
+    name: "Serviço de Bordo",
+    description: "Procedimentos e serviços oferecidos durante o voo"
   },
   "estrutura-componentes": {
-    name: "Estrutura e Componentes",
-    description: "Asas, fuselagem, empenagem, controles de voo e trem de pouso"
+    name: "Conhecimento da Aeronave",
+    description: "Estrutura básica, componentes e equipamentos de segurança"
   },
   "meteorologia-nuvens": {
     name: "Meteorologia - Nuvens",
@@ -48,7 +48,7 @@ export const MODULE_INFO: Record<QuizModule, { name: string; description: string
   },
   "emergencia-seguranca": {
     name: "Emergência e Segurança",
-    description: "Comunicação, pressurização, oxigênio, combate ao fogo e evacuação"
+    description: "Procedimentos de emergência, evacuação e combate ao fogo"
   },
   "primeiros-socorros": {
     name: "Primeiros Socorros",
@@ -56,11 +56,11 @@ export const MODULE_INFO: Record<QuizModule, { name: string; description: string
   },
   "fatores-humanos": {
     name: "Fatores Humanos",
-    description: "CRM, comunicação, assertividade, modelo SHELL e gestão de conflitos"
+    description: "CRM, comunicação, assertividade e gestão de conflitos"
   },
   "situacoes-codigo": {
-    name: "Situações a Bordo e Código Aeronáutico",
-    description: "Situações especiais a bordo e regulamentação aeronáutica brasileira"
+    name: "Situações a Bordo",
+    description: "Situações especiais a bordo e código aeronáutico brasileiro"
   },
   "misto": {
     name: "Quiz Misto",
