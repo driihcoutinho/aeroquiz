@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CircularTimer } from "@/components/CircularTimer";
 import { AnswerButton } from "@/components/AnswerButton";
@@ -21,12 +21,14 @@ export default function Quiz({ questions, onAnswer, onComplete, currentScore }: 
   const [result, setResult] = useState<QuizResult | null>(null);
   const [timeSpent, setTimeSpent] = useState(0);
   const [startTime, setStartTime] = useState(Date.now());
+  const isSubmittingRef = useRef(false);
 
   const currentQuestion = questions[currentQuestionIndex];
 
   useEffect(() => {
     setStartTime(Date.now());
     setTimeSpent(0);
+    isSubmittingRef.current = false;
   }, [currentQuestionIndex]);
 
   useEffect(() => {
@@ -39,38 +41,17 @@ export default function Quiz({ questions, onAnswer, onComplete, currentScore }: 
   }, [showResult, startTime]);
 
   const handleAnswer = async (answerIndex: number) => {
-    if (selectedAnswer !== null || showResult) return;
+    if (isSubmittingRef.current || selectedAnswer !== null || showResult) return;
 
-    const finalTimeSpent = (Date.now() - startTime) / 1000;
+    isSubmittingRef.current = true;
     setSelectedAnswer(answerIndex);
     setShowResult(true);
     
-    const quizResult = await onAnswer(currentQuestionIndex, answerIndex, finalTimeSpent);
-    setResult(quizResult);
-
-    setTimeout(() => {
-      if (currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-        setSelectedAnswer(null);
-        setShowResult(false);
-        setResult(null);
-      } else {
-        onComplete();
-      }
-    }, 3000);
-  };
-
-  const handleTimeUp = () => {
-    if (selectedAnswer === null && !showResult) {
-      setSelectedAnswer(-1);
-      setShowResult(true);
-      setResult({
-        isCorrect: false,
-        correctAnswer: -1,
-        pointsEarned: 0,
-        currentScore: currentScore,
-        explanation: "Tempo esgotado!",
-      });
+    const finalTimeSpent = (Date.now() - startTime) / 1000;
+    
+    try {
+      const quizResult = await onAnswer(currentQuestionIndex, answerIndex, finalTimeSpent);
+      setResult(quizResult);
 
       setTimeout(() => {
         if (currentQuestionIndex < questions.length - 1) {
@@ -82,6 +63,42 @@ export default function Quiz({ questions, onAnswer, onComplete, currentScore }: 
           onComplete();
         }
       }, 3000);
+    } catch (error) {
+      console.error("Error submitting answer:", error);
+      isSubmittingRef.current = false;
+      setSelectedAnswer(null);
+      setShowResult(false);
+    }
+  };
+
+  const handleTimeUp = async () => {
+    if (isSubmittingRef.current || selectedAnswer !== null || showResult) return;
+
+    isSubmittingRef.current = true;
+    setSelectedAnswer(-1);
+    setShowResult(true);
+    
+    const finalTimeSpent = currentQuestion.timeLimit;
+    
+    try {
+      const quizResult = await onAnswer(currentQuestionIndex, -1, finalTimeSpent);
+      setResult(quizResult);
+
+      setTimeout(() => {
+        if (currentQuestionIndex < questions.length - 1) {
+          setCurrentQuestionIndex(currentQuestionIndex + 1);
+          setSelectedAnswer(null);
+          setShowResult(false);
+          setResult(null);
+        } else {
+          onComplete();
+        }
+      }, 3000);
+    } catch (error) {
+      console.error("Error submitting timeout:", error);
+      isSubmittingRef.current = false;
+      setSelectedAnswer(null);
+      setShowResult(false);
     }
   };
 

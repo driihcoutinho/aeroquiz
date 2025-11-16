@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 
 interface CircularTimerProps {
@@ -10,14 +10,16 @@ interface CircularTimerProps {
 export function CircularTimer({ duration, onTimeUp, isPaused = false }: CircularTimerProps) {
   const [timeLeft, setTimeLeft] = useState(duration);
   const [isUrgent, setIsUrgent] = useState(false);
+  const hasFiredRef = useRef(false);
 
   useEffect(() => {
     setTimeLeft(duration);
     setIsUrgent(false);
+    hasFiredRef.current = false;
   }, [duration]);
 
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || hasFiredRef.current) return;
 
     const interval = setInterval(() => {
       setTimeLeft((prev) => {
@@ -27,13 +29,14 @@ export function CircularTimer({ duration, onTimeUp, isPaused = false }: Circular
           setIsUrgent(true);
         }
         
-        if (newTime <= 0) {
+        if (newTime <= 0 && !hasFiredRef.current) {
+          hasFiredRef.current = true;
           clearInterval(interval);
           onTimeUp();
           return 0;
         }
         
-        return newTime;
+        return newTime > 0 ? newTime : 0;
       });
     }, 100);
 

@@ -48,7 +48,7 @@ export type QuizSession = typeof quizSessions.$inferSelect;
 export const answerSubmissionSchema = z.object({
   sessionId: z.string(),
   questionIndex: z.number(),
-  selectedAnswer: z.number().min(-1).max(3), // -1 = timeout/no answer
+  selectedAnswer: z.number().min(-1).max(3).nullable(), // null or -1 = timeout/no answer
   timeSpent: z.number(), // seconds
 });
 

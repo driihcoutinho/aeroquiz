@@ -18,7 +18,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         correctAnswers: 0,
         totalQuestions: selectedQuestions.length,
         questionIds: selectedQuestions.map(q => q.id),
-        answers: [],
+        answers: Array.from({ length: selectedQuestions.length }, () => ""),
         isComplete: false,
       });
 
@@ -61,7 +61,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ error: "Question not found" });
       }
 
-      const isCorrect = selectedAnswer >= 0 && selectedAnswer === question.correctAnswer;
+      const isTimeout = selectedAnswer === null || selectedAnswer === -1;
+      const isCorrect = !isTimeout && selectedAnswer >= 0 && selectedAnswer === question.correctAnswer;
       
       let pointsEarned = 0;
       if (isCorrect) {
@@ -70,8 +71,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         pointsEarned = Math.round(maxPoints * (0.5 + 0.5 * timeBonus));
       }
 
-      const newAnswers = [...session.answers];
-      newAnswers[questionIndex] = selectedAnswer.toString();
+      if (session.answers[questionIndex] !== "") {
+        return res.status(400).json({ error: "Answer already submitted for this question" });
+      }
+
+      const newAnswers = Array.from(session.answers);
+      newAnswers[questionIndex] = isTimeout ? "-1" : selectedAnswer.toString();
 
       const updatedSession = await storage.updateQuizSession(sessionId, {
         currentQuestionIndex: questionIndex + 1,
@@ -82,13 +87,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         completedAt: questionIndex + 1 >= session.totalQuestions ? new Date() : session.completedAt,
       });
 
-      const result = {
+      const result: QuizResult = {
         isCorrect,
         correctAnswer: question.correctAnswer,
         pointsEarned,
         currentScore: updatedSession.score,
-        explanation: question.explanation,
       };
+
+      if (question.explanation) {
+        result.explanation = question.explanation;
+      }
 
       res.json(result);
     } catch (error) {
