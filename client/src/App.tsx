@@ -12,6 +12,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import type { Question, QuizSession, QuizResult, AnswerSubmission, QuizModule } from "@shared/schema";
+import { MODULE_INFO } from "@shared/schema";
 
 type AppState = "home" | "quiz" | "results";
 
@@ -130,6 +131,7 @@ function QuizApp() {
               onAnswer={handleAnswer}
               onComplete={handleComplete}
               currentScore={currentScore}
+              moduleName={MODULE_INFO[selectedModule].name}
             />
           )}
         </>
@@ -141,6 +143,7 @@ function QuizApp() {
           correctAnswers={correctAnswers}
           totalQuestions={questions.length}
           onRestart={handleRestart}
+          moduleName={MODULE_INFO[selectedModule].name}
         />
       )}
       <Toaster />

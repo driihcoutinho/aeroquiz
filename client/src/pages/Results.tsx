@@ -3,15 +3,17 @@ import { Trophy, Award, Medal, Target, Clock, CheckCircle, XCircle } from "lucid
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
 
 interface ResultsProps {
   score: number;
   correctAnswers: number;
   totalQuestions: number;
   onRestart: () => void;
+  moduleName?: string;
 }
 
-export default function Results({ score, correctAnswers, totalQuestions, onRestart }: ResultsProps) {
+export default function Results({ score, correctAnswers, totalQuestions, onRestart, moduleName }: ResultsProps) {
   const accuracy = Math.round((correctAnswers / totalQuestions) * 100);
   
   const getTrophyIcon = () => {
@@ -70,6 +72,11 @@ export default function Results({ score, correctAnswers, totalQuestions, onResta
               <p className="text-lg text-muted-foreground font-medium" data-testid="text-quiz-complete">
                 Quiz Concluído
               </p>
+              {moduleName && (
+                <Badge variant="default" className="text-sm font-semibold px-4 py-2 mt-2" data-testid="badge-module-result">
+                  {moduleName}
+                </Badge>
+              )}
             </motion.div>
 
             <motion.div

@@ -12,9 +12,10 @@ interface QuizProps {
   onAnswer: (questionIndex: number, selectedAnswer: number, timeSpent: number) => Promise<QuizResult>;
   onComplete: () => void;
   currentScore: number;
+  moduleName?: string;
 }
 
-export default function Quiz({ questions, onAnswer, onComplete, currentScore }: QuizProps) {
+export default function Quiz({ questions, onAnswer, onComplete, currentScore, moduleName }: QuizProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -108,9 +109,16 @@ export default function Quiz({ questions, onAnswer, onComplete, currentScore }: 
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5 p-4">
       <div className="max-w-4xl mx-auto py-6 space-y-6">
         <div className="flex items-center justify-between gap-4 flex-wrap">
-          <Badge variant="secondary" className="text-sm font-semibold px-4 py-2" data-testid="badge-category">
-            {currentQuestion.category}
-          </Badge>
+          <div className="flex items-center gap-2 flex-wrap">
+            {moduleName && (
+              <Badge variant="default" className="text-sm font-semibold px-4 py-2" data-testid="badge-module">
+                {moduleName}
+              </Badge>
+            )}
+            <Badge variant="secondary" className="text-sm font-semibold px-4 py-2" data-testid="badge-category">
+              {currentQuestion.category}
+            </Badge>
+          </div>
           
           <div className="flex items-center gap-4">
             <ScoreDisplay score={currentScore} animate={showResult && result?.isCorrect} />
