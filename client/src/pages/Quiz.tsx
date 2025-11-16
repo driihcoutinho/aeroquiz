@@ -144,8 +144,8 @@ export default function Quiz({ questions, onAnswer, onComplete, currentScore, mo
             transition={{ duration: 0.3 }}
             className="space-y-6"
           >
-            <div className="bg-card rounded-2xl p-8 shadow-lg border-2">
-              <h2 className="text-2xl md:text-4xl font-bold text-center text-card-foreground leading-tight" data-testid="text-question">
+            <div className="bg-card rounded-2xl p-4 md:p-8 shadow-lg border-2">
+              <h2 className="text-lg sm:text-xl md:text-3xl font-bold text-center text-card-foreground leading-tight" data-testid="text-question">
                 {currentQuestion.question}
               </h2>
             </div>
