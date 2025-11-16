@@ -2,7 +2,7 @@
 
 Quiz interativo de aviação inspirado no Kahoot!, com 11 módulos de estudo baseados em documentos de aviação da ANAC.
 
-## 🚀 Deploy no Render
+## Deploy no Render
 
 ### Pré-requisitos
 - Conta no [GitHub](https://github.com)
@@ -33,7 +33,7 @@ Quiz interativo de aviação inspirado no Kahoot!, com 11 módulos de estudo bas
    - O Render fará build e deploy automaticamente
    - A URL será algo como: `https://aeroquiz.onrender.com`
 
-## 🛠️ Desenvolvimento Local
+## Desenvolvimento Local
 
 ```bash
 # Instalar dependências
@@ -49,7 +49,7 @@ npm run build
 npm start
 ```
 
-## 📦 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 ├── client/          # Frontend React + TypeScript
@@ -65,17 +65,17 @@ npm start
 └── render.yaml      # Configuração do Render
 ```
 
-## 🎮 Funcionalidades
+## Funcionalidades
 
-- ✅ 11 módulos de estudo (10 específicos + Quiz Misto)
-- ✅ Perguntas de múltipla escolha com timer
-- ✅ Sistema de pontuação baseado em tempo de resposta
-- ✅ Feedback visual instantâneo
-- ✅ Interface inspirada no Kahoot!
-- ✅ Design responsivo e acessível
-- ✅ PWA (Progressive Web App)
+- 11 módulos de estudo (10 específicos + Quiz Misto)
+- Perguntas de múltipla escolha com timer
+- Sistema de pontuação baseado em tempo de resposta
+- Feedback visual instantâneo
+- Interface inspirada no Kahoot!
+- Design responsivo e acessível
+- PWA (Progressive Web App)
 
-## 📚 Módulos Disponíveis
+## Módulos Disponíveis
 
 1. **Sistemas da Aeronave** - Ar condicionado, oxigênio, proteção contra fogo
 2. **Motores** - Conhecimentos técnicos sobre motores
@@ -89,7 +89,7 @@ npm start
 10. **Situações a Bordo** - Código aeronáutico brasileiro
 11. **Quiz Misto** - Questões aleatórias de todos os módulos
 
-## 🔧 Tecnologias
+## Tecnologias
 
 **Frontend:**
 - React 18
@@ -106,6 +106,6 @@ npm start
 - Zod (validação)
 - In-memory storage
 
-## 📝 Licença
+## Licença
 
 MIT
