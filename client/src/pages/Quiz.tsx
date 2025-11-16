@@ -158,8 +158,8 @@ export default function Quiz({ questions, onAnswer, onComplete, currentScore, mo
                   text={option}
                   onSelect={() => handleAnswer(index)}
                   isSelected={selectedAnswer === index}
-                  isCorrect={showResult && result && index === result.correctAnswer}
-                  isIncorrect={showResult && selectedAnswer === index && result && !result.isCorrect}
+                  isCorrect={showResult && result ? index === result.correctAnswer : undefined}
+                  isIncorrect={showResult && selectedAnswer === index && result ? !result.isCorrect : undefined}
                   disabled={selectedAnswer !== null || showResult}
                   showResult={showResult}
                 />

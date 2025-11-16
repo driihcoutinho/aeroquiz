@@ -35,14 +35,26 @@ function QuizApp() {
         "/api/quiz/start", 
         { module }
       );
-      return await response.json() as { session: QuizSession; questions: QuestionWithoutAnswer[] };
+      const data = await response.json() as { session: QuizSession; questions: QuestionWithoutAnswer[] };
+      console.log("[DEBUG] Quiz start response:", {
+        sessionId: data.session.id,
+        questionsCount: data.questions.length,
+        questions: data.questions
+      });
+      return data;
     },
     onSuccess: (data) => {
+      console.log("[DEBUG] onSuccess called with data:", {
+        sessionId: data.session.id,
+        questionsCount: data.questions.length
+      });
       setSessionId(data.session.id);
       setQuestions(data.questions);
       setCurrentScore(0);
       setCorrectAnswers(0);
+      console.log("[DEBUG] Setting appState to quiz");
       setAppState("quiz");
+      console.log("[DEBUG] appState set to quiz");
     },
     onError: () => {
       toast({
@@ -116,25 +128,22 @@ function QuizApp() {
         />
       )}
       
-      {appState === "quiz" && (
-        <>
-          {startQuizMutation.isPending && <LoadingScreen />}
-          {startQuizMutation.isError && (
-            <ErrorDisplay
-              message="Não foi possível carregar as perguntas."
-              onRetry={handleRetry}
-            />
-          )}
-          {!startQuizMutation.isPending && !startQuizMutation.isError && questions.length > 0 && (
-            <Quiz
-              questions={questions as Question[]}
-              onAnswer={handleAnswer}
-              onComplete={handleComplete}
-              currentScore={currentScore}
-              moduleName={MODULE_INFO[selectedModule].name}
-            />
-          )}
-        </>
+      {appState === "quiz" && questions.length > 0 && (
+        <Quiz
+          questions={questions as Question[]}
+          onAnswer={handleAnswer}
+          onComplete={handleComplete}
+          currentScore={currentScore}
+          moduleName={MODULE_INFO[selectedModule].name}
+        />
+      )}
+      
+      {appState === "home" && startQuizMutation.isPending && <LoadingScreen />}
+      {appState === "home" && startQuizMutation.isError && (
+        <ErrorDisplay
+          message="Não foi possível carregar as perguntas."
+          onRetry={handleRetry}
+        />
       )}
       
       {appState === "results" && (
