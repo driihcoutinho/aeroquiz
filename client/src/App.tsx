@@ -28,12 +28,12 @@ function QuizApp() {
 
   const startQuizMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiRequest<{ session: QuizSession; questions: QuestionWithoutAnswer[] }>(
+      const response = await apiRequest(
         "POST", 
         "/api/quiz/start", 
         {}
       );
-      return response;
+      return await response.json() as { session: QuizSession; questions: QuestionWithoutAnswer[] };
     },
     onSuccess: (data) => {
       setSessionId(data.session.id);
@@ -53,8 +53,8 @@ function QuizApp() {
 
   const answerMutation = useMutation({
     mutationFn: async (data: AnswerSubmission) => {
-      const response = await apiRequest<QuizResult>("POST", "/api/quiz/answer", data);
-      return response;
+      const response = await apiRequest("POST", "/api/quiz/answer", data);
+      return await response.json() as QuizResult;
     },
     onSuccess: (result) => {
       setCurrentScore(result.currentScore);
