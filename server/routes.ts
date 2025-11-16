@@ -11,8 +11,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const questions = await storage.getQuestionsByModule(module);
       const selectedQuestions = questions
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 10);
+        .sort(() => Math.random() - 0.5);
 
       const session = await storage.createQuizSession({
         currentQuestionIndex: 0,
