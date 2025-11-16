@@ -3,68 +3,43 @@ import { pgTable, text, varchar, integer, boolean, timestamp } from "drizzle-orm
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-// Module types
+// Module types - CMS ANAC oficial (1600 questões)
 export const MODULES = [
-  "sistemas-aeronave",
-  "motores",
-  "alimentacao",
-  "estrutura-componentes",
-  "meteorologia-nuvens",
-  "aviacao-civil",
-  "emergencia-seguranca",
-  "primeiros-socorros",
-  "fatores-humanos",
-  "situacoes-codigo",
+  "grupo1-ess",
+  "grupo2-rpa",
+  "grupo3-pss",
+  "grupo4-cga",
   "misto", // Quiz misto (todas as questões)
 ] as const;
 
 export type QuizModule = typeof MODULES[number];
 
-// Module metadata
-export const MODULE_INFO: Record<QuizModule, { name: string; description: string }> = {
-  "sistemas-aeronave": {
-    name: "Sistemas da Aeronave",
-    description: "Ar condicionado, oxigênio, proteção contra fogo e degelo"
+// Module metadata - CMS ANAC oficial
+export const MODULE_INFO: Record<QuizModule, { name: string; description: string; questionCount: number }> = {
+  "grupo1-ess": {
+    name: "GRUPO 1 - ESS",
+    description: "Emergência, Segurança e Sobrevivência, Sistemas de Aviação Civil, Segurança de Voo, Regulamentação da Aviação Civil, Regulamentação da Profissão do Aeronauta",
+    questionCount: 400
   },
-  "motores": {
-    name: "Conhecimentos Técnicos",
-    description: "Conhecimentos técnicos gerais sobre aeronaves"
+  "grupo2-rpa": {
+    name: "GRUPO 2 - RPA",
+    description: "Regulamentação da Profissão de Aeronauta",
+    questionCount: 400
   },
-  "alimentacao": {
-    name: "Serviço de Bordo",
-    description: "Procedimentos e serviços oferecidos durante o voo"
+  "grupo3-pss": {
+    name: "GRUPO 3 - PSS",
+    description: "Primeiros Socorros, Higiene, Medicina Aeroespacial e Primeiros Socorros",
+    questionCount: 400
   },
-  "estrutura-componentes": {
-    name: "Conhecimento da Aeronave",
-    description: "Estrutura básica, componentes e equipamentos de segurança"
-  },
-  "meteorologia-nuvens": {
-    name: "Meteorologia - Nuvens",
-    description: "Classificação e tipos de nuvens, formação e características"
-  },
-  "aviacao-civil": {
-    name: "Sistema de Aviação Civil",
-    description: "História, regulamentação e convenções internacionais"
-  },
-  "emergencia-seguranca": {
-    name: "Emergência e Segurança",
-    description: "Procedimentos de emergência, evacuação e combate ao fogo"
-  },
-  "primeiros-socorros": {
-    name: "Primeiros Socorros",
-    description: "Atendimento pré-hospitalar, sinais vitais e avaliação"
-  },
-  "fatores-humanos": {
-    name: "Fatores Humanos",
-    description: "CRM, comunicação, assertividade e gestão de conflitos"
-  },
-  "situacoes-codigo": {
-    name: "Situações a Bordo",
-    description: "Situações especiais a bordo e código aeronáutico brasileiro"
+  "grupo4-cga": {
+    name: "GRUPO 4 - CGA",
+    description: "Conhecimentos Gerais de Aeronaves, Fundamentos de Navegação Aérea e de Meteorologia e Conhecimentos Gerais de Aeronaves",
+    questionCount: 400
   },
   "misto": {
     name: "Quiz Misto",
-    description: "Questões aleatórias de todos os módulos"
+    description: "Questões aleatórias de todos os grupos (1600 questões)",
+    questionCount: 1600
   }
 };
 
