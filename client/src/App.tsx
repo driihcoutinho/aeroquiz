@@ -35,26 +35,14 @@ function QuizApp() {
         "/api/quiz/start", 
         { module }
       );
-      const data = await response.json() as { session: QuizSession; questions: QuestionWithoutAnswer[] };
-      console.log("[DEBUG] Quiz start response:", {
-        sessionId: data.session.id,
-        questionsCount: data.questions.length,
-        questions: data.questions
-      });
-      return data;
+      return await response.json() as { session: QuizSession; questions: QuestionWithoutAnswer[] };
     },
     onSuccess: (data) => {
-      console.log("[DEBUG] onSuccess called with data:", {
-        sessionId: data.session.id,
-        questionsCount: data.questions.length
-      });
       setSessionId(data.session.id);
       setQuestions(data.questions);
       setCurrentScore(0);
       setCorrectAnswers(0);
-      console.log("[DEBUG] Setting appState to quiz");
       setAppState("quiz");
-      console.log("[DEBUG] appState set to quiz");
     },
     onError: () => {
       toast({
