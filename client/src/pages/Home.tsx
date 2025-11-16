@@ -1,17 +1,14 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Plane, Sparkles, Trophy, Target, BookOpen } from "lucide-react";
+import { Plane, Sparkles, Trophy, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { MODULES, MODULE_INFO, type QuizModule } from "@shared/schema";
 
 interface HomeProps {
-  onStartQuiz: (module: QuizModule) => void;
+  onStartQuiz: () => void;
   isLoading?: boolean;
 }
 
 export default function Home({ onStartQuiz, isLoading = false }: HomeProps) {
-  const [selectedModule, setSelectedModule] = useState<QuizModule>("misto");
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10 flex items-center justify-center p-4">
       <motion.div
@@ -72,51 +69,16 @@ export default function Home({ onStartQuiz, isLoading = false }: HomeProps) {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="space-y-4"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center justify-center gap-2 text-sm font-semibold text-foreground">
-                  <BookOpen className="w-4 h-4" />
-                  <span>Escolha o Módulo</span>
-                </div>
-                <div className="max-h-48 overflow-y-auto space-y-2 px-2">
-                  {MODULES.map((module) => (
-                    <button
-                      key={module}
-                      onClick={() => setSelectedModule(module)}
-                      className={`w-full text-left p-3 rounded-lg border-2 transition-all ${
-                        selectedModule === module
-                          ? "border-primary bg-primary/10 shadow-md"
-                          : "border-border bg-card hover-elevate active-elevate-2"
-                      }`}
-                      data-testid={`button-module-${module}`}
-                    >
-                      <div className="font-semibold text-sm text-foreground">
-                        {MODULE_INFO[module].name}
-                      </div>
-                      <div className="text-xs text-muted-foreground mt-1">
-                        {MODULE_INFO[module].description}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.6 }}
-              className="space-y-4"
+              transition={{ delay: 0.5 }}
+              className="space-y-4 pt-4"
             >
               <Button
                 size="lg"
-                onClick={() => onStartQuiz(selectedModule)}
+                onClick={onStartQuiz}
                 disabled={isLoading}
-                className="w-full md:w-auto px-12 py-6 text-2xl font-bold rounded-2xl shadow-lg hover:shadow-xl"
+                className="w-full px-12 py-7 text-2xl md:text-3xl font-bold rounded-2xl shadow-lg hover:shadow-xl"
                 data-testid="button-start-quiz"
               >
                 {isLoading ? "Carregando..." : "Iniciar Quiz"}
