@@ -8,15 +8,15 @@ AeroQuiz is a Progressive Web Application (PWA) designed as an interactive aviat
 - **Data Ingestion**: Processed 1.270 questões oficiais CMS ANAC (99,1% success rate) from official DOCX files
   - ESS: 391/399 (98,0%)
   - RPA: 329/332 (99,1%)
-  - PSS: 300/300 (100%) ✅
-  - CGA: 250/250 (100%) ✅
+  - PSS: 300/300 (100%)
+  - CGA: 250/250 (100%)
 - **Design Overhaul**: Complete redesign with Tranquil Lily purple theme (dark mode only)
   - Vertical list layout replacing Kahoot-style 2x2 grid
   - Purple gradient background (#4B3F6E)
   - White question cards with green/red feedback
   - Clean, minimal, professional aesthetic
 - **Sistema Simplificado**: Removed Kahoot-style scoring system
-  - Durante quiz: apenas feedback "✓ Correto!" ou "✗ Incorreto"
+  - Durante quiz: apenas feedback "Correto!" ou "Incorreto"
   - Tela de resultados: mostra quantidade de acertos/erros e porcentagem
   - Sem cálculo de pontos baseado em tempo
 - Automated question extraction pipeline using mammoth + regex parser

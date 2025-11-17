@@ -237,7 +237,7 @@ export default function Quiz({ questions, onAnswer, onComplete, moduleName }: Qu
                     <h3 className={`text-2xl font-bold ${
                       result.isCorrect ? "text-green-900" : "text-red-900"
                     }`} data-testid="text-result-message">
-                      {result.isCorrect ? "✓ Correto!" : "✗ Incorreto"}
+                      {result.isCorrect ? "Correto!" : "Incorreto"}
                     </h3>
                   </div>
 

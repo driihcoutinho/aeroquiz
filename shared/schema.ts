@@ -29,12 +29,12 @@ export const MODULE_INFO: Record<QuizModule, { name: string; description: string
   "pss": {
     name: "GRUPO 3 - PSS",
     description: "Primeiros Socorros e Saúde",
-    questionCount: 300  // 300 questões processadas (100% sucesso) ✅
+    questionCount: 300  // 300 questões processadas (100% sucesso)
   },
   "cga": {
     name: "GRUPO 4 - CGA",
     description: "Conhecimentos Gerais de Aeronaves",
-    questionCount: 250  // 250 questões processadas (100% sucesso) ✅
+    questionCount: 250  // 250 questões processadas (100% sucesso)
   },
   "misto": {
     name: "Quiz Misto",
