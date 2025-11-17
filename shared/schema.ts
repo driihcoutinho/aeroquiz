@@ -3,43 +3,43 @@ import { pgTable, text, varchar, integer, boolean, timestamp } from "drizzle-orm
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-// Module types - CMS ANAC oficial (1600 questões)
+// Module types - CMS ANAC oficial (1281 questões reais)
 export const MODULES = [
-  "grupo1-ess",
-  "grupo2-rpa",
-  "grupo3-pss",
-  "grupo4-cga",
-  "misto", // Quiz misto (todas as questões)
+  "ess",    // GRUPO 1 - Emergência, Segurança e Sobrevivência (399 questões)
+  "rpa",    // GRUPO 2 - Regulamentação da Profissão de Aeronauta (332 questões)
+  "pss",    // GRUPO 3 - Primeiros Socorros (300 questões)
+  "cga",    // GRUPO 4 - Conhecimentos Gerais de Aeronaves (250 questões)
+  "misto",  // Quiz misto (todas as questões)
 ] as const;
 
 export type QuizModule = typeof MODULES[number];
 
 // Module metadata - CMS ANAC oficial
 export const MODULE_INFO: Record<QuizModule, { name: string; description: string; questionCount: number }> = {
-  "grupo1-ess": {
+  "ess": {
     name: "GRUPO 1 - ESS",
-    description: "Emergência, Segurança e Sobrevivência, Sistemas de Aviação Civil, Segurança de Voo, Regulamentação da Aviação Civil, Regulamentação da Profissão do Aeronauta",
-    questionCount: 400
+    description: "Emergência, Segurança e Sobrevivência",
+    questionCount: 391  // 391 questões processadas de 399 oficiais (99,1% sucesso)
   },
-  "grupo2-rpa": {
+  "rpa": {
     name: "GRUPO 2 - RPA",
     description: "Regulamentação da Profissão de Aeronauta",
-    questionCount: 400
+    questionCount: 329  // 329 questões processadas de 332 oficiais (99,1% sucesso)
   },
-  "grupo3-pss": {
+  "pss": {
     name: "GRUPO 3 - PSS",
-    description: "Primeiros Socorros, Higiene, Medicina Aeroespacial e Primeiros Socorros",
-    questionCount: 400
+    description: "Primeiros Socorros e Saúde",
+    questionCount: 300  // 300 questões processadas (100% sucesso) ✅
   },
-  "grupo4-cga": {
+  "cga": {
     name: "GRUPO 4 - CGA",
-    description: "Conhecimentos Gerais de Aeronaves, Fundamentos de Navegação Aérea e de Meteorologia e Conhecimentos Gerais de Aeronaves",
-    questionCount: 400
+    description: "Conhecimentos Gerais de Aeronaves",
+    questionCount: 250  // 250 questões processadas (100% sucesso) ✅
   },
   "misto": {
     name: "Quiz Misto",
-    description: "Questões aleatórias de todos os grupos (1600 questões)",
-    questionCount: 1600
+    description: "Questões aleatórias de todos os grupos CMS ANAC",
+    questionCount: 1270 // 1.270 questões validadas e limpas (99,1% de 1.281 oficiais)
   }
 };
 
