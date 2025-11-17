@@ -98,5 +98,5 @@ MIT
 
 ---
 
-**Desenvolvido para comissários de bordo** 🛫✈️
+**Desenvolvido para comissários de bordo**
 Estude com questões oficiais ANAC e alcance seus objetivos!
