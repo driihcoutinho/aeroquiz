@@ -2,40 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-/* TRANQUIL LILY THEME - Purple Quiz App (Dark Mode Only) */
+/* YELLOW THEME - Dark Quiz App with Yellow Accent */
 :root {
-  --button-outline: rgba(255,255,255, .15);
-  --badge-outline: rgba(255,255,255, .08);
+  --button-outline: rgba(255,205,0, .20);
+  --badge-outline: rgba(255,205,0, .10);
   --opaque-button-border-intensity: 8;
-  --elevate-1: rgba(255,255,255, .05);
-  --elevate-2: rgba(255,255,255, .10);
+  --elevate-1: rgba(255,205,0, .05);
+  --elevate-2: rgba(255,205,0, .10);
   
-  /* Deep Purple Background */
-  --background: 268 30% 22%;  /* #4B3F6E */
+  /* Dark Navy Background */
+  --background: 210 18% 12%;  /* #192230 */
   --foreground: 0 0% 98%;
   
   /* Card & Surfaces */
-  --card: 0 0% 100%;  /* White cards */
-  --card-foreground: 268 20% 15%;
-  --card-border: 268 10% 88%;
+  --card: 210 13% 16%;  /* #3d474e */
+  --card-foreground: 0 0% 95%;
+  --card-border: 210 10% 25%;
   
   /* Borders */
-  --border: 268 15% 35%;
-  --input: 268 15% 35%;
+  --border: 210 10% 25%;
+  --input: 210 10% 25%;
   
-  /* Primary Purple */
-  --primary: 268 25% 45%;  /* #6C5F8D */
-  --primary-foreground: 0 0% 100%;
+  /* Primary Yellow */
+  --primary: 48 100% 50%;  /* #ffcd00 */
+  --primary-foreground: 210 18% 12%;
   
   /* Secondary & Muted */
-  --secondary: 268 20% 55%;  /* #9C8CB9 */
-  --secondary-foreground: 0 0% 100%;
-  --muted: 268 15% 30%;
-  --muted-foreground: 268 8% 70%;
+  --secondary: 210 10% 23%;  /* #2c2f38 */
+  --secondary-foreground: 0 0% 95%;
+  --muted: 210 10% 23%;
+  --muted-foreground: 0 0% 65%;
   
-  /* Accent */
-  --accent: 285 25% 65%;  /* #BA96C1 */
-  --accent-foreground: 0 0% 100%;
+  /* Accent Yellow */
+  --accent: 48 100% 50%;  /* #ffcd00 */
+  --accent-foreground: 210 18% 12%;
   
   /* Success (Green Progress) */
   --success: 100 65% 60%;  /* #7FD957 */
@@ -51,27 +51,27 @@
   --quiz-progress: 100 65% 60%;  /* Green progress bar */
   
   /* Sidebar (if needed) */
-  --sidebar: 268 25% 25%;
+  --sidebar: 210 13% 16%;
   --sidebar-foreground: 0 0% 95%;
-  --sidebar-border: 268 15% 30%;
-  --sidebar-primary: 268 25% 45%;
-  --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 268 20% 30%;
+  --sidebar-border: 210 10% 25%;
+  --sidebar-primary: 48 100% 50%;
+  --sidebar-primary-foreground: 210 18% 12%;
+  --sidebar-accent: 210 10% 23%;
   --sidebar-accent-foreground: 0 0% 95%;
-  --sidebar-ring: 268 25% 45%;
+  --sidebar-ring: 48 100% 50%;
   
   /* Popover */
-  --popover: 268 25% 25%;
+  --popover: 210 13% 16%;
   --popover-foreground: 0 0% 95%;
-  --popover-border: 268 15% 35%;
+  --popover-border: 210 10% 25%;
   
   /* Ring */
-  --ring: 268 25% 50%;
+  --ring: 48 100% 50%;
   
   /* Charts */
-  --chart-1: 268 25% 45%;
+  --chart-1: 48 100% 50%;
   --chart-2: 100 65% 60%;
-  --chart-3: 285 25% 65%;
+  --chart-3: 210 10% 35%;
   --chart-4: 0 75% 65%;
   --chart-5: 50 80% 60%;
   

@@ -12,7 +12,7 @@ interface HomeProps {
 export default function Home({ onStartQuiz, isLoading = false }: HomeProps) {
   const modules: QuizModule[] = ["ess", "rpa", "pss", "cga"];
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

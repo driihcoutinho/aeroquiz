@@ -10,14 +10,21 @@ AeroQuiz is a Progressive Web Application (PWA) designed as an interactive aviat
   - RPA: 329/332 (99,1%)
   - PSS: 300/300 (100%)
   - CGA: 250/250 (100%)
-- **Design Overhaul**: Complete redesign with Tranquil Lily purple theme (dark mode only)
-  - Vertical list layout replacing Kahoot-style 2x2 grid
-  - Purple gradient background (#4B3F6E)
-  - White question cards with green/red feedback
-  - Clean, minimal, professional aesthetic
+- **Design System**: Yellow/dark theme based on professional color palette
+  - Background: #192230 (dark navy)
+  - Cards: #3d474e (dark gray)
+  - Primary accent: #ffcd00 (vibrant yellow)
+  - Secondary: #2c2f38 (darker gray)
+  - Correct answers: Light green (#d1f4e0) with green borders
+  - Incorrect answers: Light pink (#ffd4d4) with red borders
+- **Module-Based Quiz System**: 4 independent quiz sessions by module
+  - Home screen displays all 4 modules with question counts
+  - Each module tracks its own correct/incorrect answers
+  - Results screen shows module-specific performance
+- **Navigation**: "Início" button on all screens (Quiz, Results) for easy navigation
 - **Sistema Simplificado**: Removed Kahoot-style scoring system
   - Durante quiz: apenas feedback "Correto!" ou "Incorreto"
-  - Tela de resultados: mostra quantidade de acertos/erros e porcentagem
+  - Tela de resultados: mostra quantidade de acertos/erros e porcentagem por módulo
   - Sem cálculo de pontos baseado em tempo
 - Automated question extraction pipeline using mammoth + regex parser
 - Gabaritos oficiais ANAC manually transcribed and validated
@@ -47,12 +54,12 @@ Preferred communication style: Simple, everyday language.
 
 **Animation**: Framer Motion provides smooth animations and transitions for quiz interactions, answer feedback, and screen transitions.
 
-**Design System**: Tranquil Lily purple theme (dark mode only):
-- **Palette**: Deep purple (#4B3F6E), Medium purple (#6C5F8D), Lavender (#9C8CB9), Beige (#DCD7D5), Rose purple (#BA96C1)
-- **Layout**: Vertical list of answer options, white question cards
-- **Feedback**: Green (#7FD957) for correct, Red (#FF6B6B) for incorrect
+**Design System**: Yellow/dark theme (dark mode only):
+- **Palette**: Dark navy (#192230), Dark gray (#3d474e), Vibrant yellow (#ffcd00), Darker gray (#2c2f38)
+- **Layout**: Vertical list of answer options, dark gray question cards
+- **Feedback**: Light green (#d1f4e0) with green borders for correct, Light pink (#ffd4d4) with red borders for incorrect
 - **Typography**: System sans for clean readability
-- Full-screen immersive dark mode experience
+- Full-screen immersive dark mode experience with yellow accents
 
 **PWA Features**: Service worker implementation for offline functionality, manifest.json for installability, and mobile-first responsive design.
 

@@ -100,7 +100,13 @@ function QuizApp() {
     setAppState("results");
   };
 
-  const handleRestart = () => {
+  const handleRestartQuiz = () => {
+    if (selectedModule) {
+      startQuizMutation.mutate(selectedModule);
+    }
+  };
+
+  const handleGoHome = () => {
     setAppState("home");
     setSessionId(null);
     setCorrectAnswers(0);
@@ -141,7 +147,8 @@ function QuizApp() {
         <Results
           correctAnswers={correctAnswers}
           totalQuestions={questions.length}
-          onRestart={handleRestart}
+          onRestart={handleRestartQuiz}
+          onGoHome={handleGoHome}
           moduleName={MODULE_INFO[selectedModule].name}
         />
       )}

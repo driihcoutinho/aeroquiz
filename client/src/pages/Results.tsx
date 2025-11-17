@@ -7,22 +7,23 @@ interface ResultsProps {
   correctAnswers: number;
   totalQuestions: number;
   onRestart: () => void;
+  onGoHome: () => void;
   moduleName?: string;
 }
 
-export default function Results({ correctAnswers, totalQuestions, onRestart, moduleName }: ResultsProps) {
+export default function Results({ correctAnswers, totalQuestions, onRestart, onGoHome, moduleName }: ResultsProps) {
   const incorrectAnswers = totalQuestions - correctAnswers;
   const percentage = Math.round((correctAnswers / totalQuestions) * 100);
   
   return (
-    <div className="min-h-screen bg-[#3d3552] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
         className="w-full max-w-2xl"
       >
-        <Card className="p-8 md:p-12 shadow-2xl border-0 bg-white">
+        <Card className="p-8 md:p-12 shadow-2xl border border-border bg-card">
           <div className="text-center space-y-8">
             <motion.div
               initial={{ scale: 0 }}
@@ -30,7 +31,7 @@ export default function Results({ correctAnswers, totalQuestions, onRestart, mod
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
               className="flex justify-center"
             >
-              <Trophy className="w-24 h-24 md:w-32 md:h-32 text-[#7c6b9c]" data-testid="icon-trophy" />
+              <Trophy className="w-24 h-24 md:w-32 md:h-32 text-primary" data-testid="icon-trophy" />
             </motion.div>
 
             <motion.div
@@ -39,15 +40,15 @@ export default function Results({ correctAnswers, totalQuestions, onRestart, mod
               transition={{ delay: 0.3 }}
               className="space-y-4"
             >
-              <h1 className="text-4xl md:text-5xl font-extrabold text-white bg-[#3b82f6] px-6 py-3 rounded-lg inline-block" data-testid="text-results-title">
+              <h1 className="text-4xl md:text-5xl font-extrabold text-primary-foreground bg-primary px-6 py-3 rounded-lg inline-block" data-testid="text-results-title">
                 Módulo Concluído!
               </h1>
               {moduleName && (
-                <p className="text-lg text-gray-500 font-medium" data-testid="text-module-name">
+                <p className="text-lg text-muted-foreground font-medium" data-testid="text-module-name">
                   {moduleName}
                 </p>
               )}
-              <p className="text-2xl text-gray-500 font-semibold" data-testid="text-percentage">
+              <p className="text-2xl text-muted-foreground font-semibold" data-testid="text-percentage">
                 {percentage}% de acerto
               </p>
             </motion.div>
@@ -76,16 +77,25 @@ export default function Results({ correctAnswers, totalQuestions, onRestart, mod
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="space-y-4 pt-4"
+              className="space-y-3 pt-4"
             >
               <Button
                 size="lg"
                 onClick={onRestart}
-                className="w-full px-8 py-6 text-xl font-bold rounded-2xl shadow-lg hover:shadow-xl bg-[#7c6b9c] hover:bg-[#6b5a8b] text-white"
+                className="w-full px-8 py-6 text-xl font-bold rounded-2xl shadow-lg hover:shadow-xl"
                 data-testid="button-restart"
               >
                 <RotateCcw className="w-6 h-6 mr-2" />
                 Reiniciar Módulo
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={onGoHome}
+                className="w-full px-8 py-6 text-xl font-bold rounded-2xl"
+                data-testid="button-home"
+              >
+                Início
               </Button>
             </motion.div>
           </div>

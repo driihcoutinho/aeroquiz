@@ -120,33 +120,34 @@ export default function Quiz({ questions, onAnswer, onComplete, moduleName }: Qu
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      <div className="bg-primary/80 backdrop-blur-sm p-4 flex items-center justify-between sticky top-0 z-10">
+      <div className="bg-card/95 backdrop-blur-sm p-4 flex items-center justify-between sticky top-0 z-10 border-b border-border">
         <Button
           variant="ghost"
-          size="icon"
-          className="text-primary-foreground hover:bg-primary-foreground/10"
+          size="sm"
+          className="text-foreground hover:bg-accent/20"
           onClick={onComplete}
           data-testid="button-back"
         >
-          <ArrowLeft className="w-5 h-5" />
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Início
         </Button>
 
-        <div className="text-primary-foreground font-semibold text-lg" data-testid="text-progress">
+        <div className="text-foreground font-semibold text-lg" data-testid="text-progress">
           {String(currentQuestionIndex + 1).padStart(2, '0')} of {String(totalQuestions).padStart(2, '0')}
         </div>
 
         <div className="flex items-center gap-2 bg-accent/20 backdrop-blur-sm rounded-full px-3 py-1.5" data-testid="timer-display">
-          <Clock className="w-4 h-4 text-accent-foreground" />
-          <span className="text-accent-foreground font-semibold text-sm">
+          <Clock className="w-4 h-4 text-primary" />
+          <span className="text-foreground font-semibold text-sm">
             {Math.ceil(timeRemaining)}
           </span>
         </div>
       </div>
 
       {/* Progress Bar */}
-      <div className="bg-primary/20 h-2">
+      <div className="bg-secondary h-2">
         <motion.div
-          className="h-full bg-[hsl(var(--success))]"
+          className="h-full bg-primary"
           initial={{ width: 0 }}
           animate={{ width: `${progressPercent}%` }}
           transition={{ duration: 0.5, ease: "easeOut" }}
