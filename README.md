@@ -2,23 +2,23 @@
 
 Progressive Web App (PWA) de quiz de aviação com 1.270 questões oficiais do CMS ANAC, especialmente desenvolvido para comissários de bordo.
 
-## 🎯 Visão Geral
+## Visão Geral
 
 AeroQuiz é uma aplicação de quiz interativa que apresenta questões oficiais de aviação organizadas em 4 módulos especializados baseados nos documentos CMS ANAC. O sistema oferece feedback instantâneo, salvamento automático de progresso e design moderno em tema amarelo/escuro.
 
-### ✨ Características Principais
+### Características Principais
 
-- ✅ **1.270 questões oficiais CMS ANAC** validadas
-- 📚 **4 módulos especializados** (ESS, RPA, PSS, CGA)
-- 🎨 **Design amarelo/escuro** profissional
-- 📱 **Layout vertical responsivo**
-- 💾 **Salvamento automático de progresso** (24h)
-- ⚡ **Feedback visual imediato** (verde/vermelho)
-- 📊 **Sistema simplificado** de contagem (acertos/erros por módulo)
-- 🌐 **Progressive Web App (PWA)** - funciona offline
-- 🔄 **Sistema de retomada** - continue de onde parou
+- **1.270 questões oficiais CMS ANAC** validadas
+- **4 módulos especializados** (ESS, RPA, PSS, CGA)
+- **Design amarelo/escuro** profissional
+- **Layout vertical responsivo**
+- **Salvamento automático de progresso** (24h)
+- **Feedback visual imediato** (verde/vermelho)
+- **Sistema simplificado** de contagem (acertos/erros por módulo)
+- **Progressive Web App (PWA)** - funciona offline
+- **Sistema de retomada** - continue de onde parou
 
-## 📚 Módulos Disponíveis
+## Módulos Disponíveis
 
 1. **GRUPO 1 - ESS** (391 questões) - Emergência, Segurança e Sobrevivência
 2. **GRUPO 2 - RPA** (329 questões) - Regulamentação da Profissão de Aeronauta
@@ -27,7 +27,7 @@ AeroQuiz é uma aplicação de quiz interativa que apresenta questões oficiais 
 
 Cada módulo funciona de forma **independente** - você pode fazer um módulo por vez e o progresso é salvo automaticamente!
 
-## 🎨 Design
+## Design
 
 **Paleta Amarela/Escura:**
 - Dark Navy (#192230) - Background
@@ -39,7 +39,7 @@ Cada módulo funciona de forma **independente** - você pode fazer um módulo po
 - Verde claro (#d1f4e0) com borda verde - Resposta correta
 - Rosa claro (#ffd4d4) com borda vermelha - Resposta incorreta
 
-## 💾 Sistema de Progresso
+## Sistema de Progresso
 
 - **Salvamento automático**: Ao clicar em "Início" durante o quiz
 - **Badge "Em progresso"**: Indica módulos com progresso salvo
@@ -47,7 +47,7 @@ Cada módulo funciona de forma **independente** - você pode fazer um módulo po
 - **Expiração**: Progresso mantido por 24 horas
 - **Indicador**: Mostra em qual questão você parou
 
-## 🚀 Desenvolvimento Local
+## Desenvolvimento Local
 
 ```bash
 # Instalar dependências
@@ -65,7 +65,7 @@ npm start
 
 O servidor estará disponível em `http://localhost:5000`
 
-## 🌐 Deploy no Render
+## Deploy no Render
 
 ### Pré-requisitos
 - Conta no [GitHub](https://github.com)
@@ -109,7 +109,7 @@ git push origin main
 # Deploy automático no Render!
 ```
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 ├── client/                # Frontend React + TypeScript
@@ -131,7 +131,7 @@ git push origin main
 └── render.yaml            # Configuração do Render
 ```
 
-## 🛠️ Tecnologias
+## Tecnologias
 
 **Frontend:**
 - React 18 + TypeScript
@@ -151,7 +151,7 @@ git push origin main
 - Mammoth (extração de DOCX)
 - Drizzle ORM (preparado para PostgreSQL)
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### POST /api/quiz/start
 Inicia uma nova sessão de quiz
@@ -206,7 +206,7 @@ Submete resposta de uma questão
 }
 ```
 
-## 📊 Dados Oficiais
+## Dados Oficiais
 
 As questões foram extraídas de documentos oficiais ANAC:
 - **Fonte**: Documentos DOCX oficiais CMS ANAC
@@ -220,7 +220,7 @@ As questões foram extraídas de documentos oficiais ANAC:
 - PSS: 300/300 (100%)
 - CGA: 250/250 (100%)
 
-## 💡 Como Usar
+## Como Usar
 
 1. **Escolha um módulo** na tela inicial
 2. **Continue de onde parou** ou comece um novo quiz
@@ -229,13 +229,8 @@ As questões foram extraídas de documentos oficiais ANAC:
 5. **Veja seus resultados** ao completar o módulo
 6. **Reinicie** ou volte para home
 
-## ⚠️ Nota sobre Render (Plano Gratuito)
 
-- Apps no plano gratuito "adormecem" após 15 minutos de inatividade
-- Primeiro acesso pode levar ~30 segundos para "acordar"
-- Para produção sem sleep, considere o plano pago ($7/mês)
-
-## 📄 Licença
+## Licença
 
 MIT
 
