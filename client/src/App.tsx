@@ -78,8 +78,7 @@ function QuizApp() {
     },
   });
 
-  const handleStartQuiz = () => {
-    const module: QuizModule = "misto";
+  const handleStartQuiz = (module: QuizModule) => {
     setSelectedModule(module);
     startQuizMutation.mutate(module);
   };

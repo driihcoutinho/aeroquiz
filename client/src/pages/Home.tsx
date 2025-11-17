@@ -2,13 +2,15 @@ import { motion } from "framer-motion";
 import { Plane, Sparkles, Trophy, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { MODULES, MODULE_INFO, type QuizModule } from "@shared/schema";
 
 interface HomeProps {
-  onStartQuiz: () => void;
+  onStartQuiz: (module: QuizModule) => void;
   isLoading?: boolean;
 }
 
 export default function Home({ onStartQuiz, isLoading = false }: HomeProps) {
+  const modules: QuizModule[] = ["ess", "rpa", "pss", "cga"];
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10 flex items-center justify-center p-4">
       <motion.div
@@ -74,16 +76,33 @@ export default function Home({ onStartQuiz, isLoading = false }: HomeProps) {
               transition={{ delay: 0.5 }}
               className="space-y-4 pt-4"
             >
-              <Button
-                size="lg"
-                onClick={onStartQuiz}
-                disabled={isLoading}
-                className="w-full px-12 py-7 text-2xl md:text-3xl font-bold rounded-2xl shadow-lg hover:shadow-xl"
-                data-testid="button-start-quiz"
-              >
-                {isLoading ? "Carregando..." : "Iniciar Quiz"}
-              </Button>
-              <p className="text-sm text-muted-foreground">
+              <div className="space-y-3">
+                <p className="text-lg font-semibold text-foreground">Escolha um módulo:</p>
+                {modules.map((module, index) => (
+                  <motion.div
+                    key={module}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6 + index * 0.1 }}
+                  >
+                    <Button
+                      size="lg"
+                      onClick={() => onStartQuiz(module)}
+                      disabled={isLoading}
+                      className="w-full px-8 py-6 text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl"
+                      data-testid={`button-module-${module}`}
+                    >
+                      <div className="flex flex-col items-start w-full">
+                        <span>{MODULE_INFO[module].name}</span>
+                        <span className="text-sm font-normal opacity-80">
+                          {MODULE_INFO[module].questionCount} questões
+                        </span>
+                      </div>
+                    </Button>
+                  </motion.div>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground pt-2">
                 Teste seus conhecimentos em aviação!
               </p>
             </motion.div>
