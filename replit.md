@@ -5,11 +5,19 @@
 AeroQuiz is a Progressive Web Application (PWA) designed as an interactive aviation quiz platform, inspired by Kahoot!'s gamified learning experience. The application presents aviation-related questions organized into 11 specialized modules covering ANAC regulations, aircraft systems, meteorology, emergency procedures, and more. Features timed gameplay, instant feedback, module-based study selection, and engaging Kahoot-style visual design.
 
 **Latest Updates (November 2025):**
-- Implemented 11-module system (10 specialized modules + Quiz Misto)
-- Fixed critical rendering bugs in Quiz component
+- **Data Ingestion**: Processed 1.270 questões oficiais CMS ANAC (99,1% success rate) from official DOCX files
+  - ESS: 391/399 (98,0%)
+  - RPA: 329/332 (99,1%)
+  - PSS: 300/300 (100%) ✅
+  - CGA: 250/250 (100%) ✅
+- **Design Overhaul**: Complete redesign with Tranquil Lily purple theme (dark mode only)
+  - Vertical list layout replacing Kahoot-style 2x2 grid
+  - Purple gradient background (#4B3F6E)
+  - White question cards with green/red feedback
+  - Clean, minimal, professional aesthetic
+- Automated question extraction pipeline using mammoth + regex parser
+- Gabaritos oficiais ANAC manually transcribed and validated
 - Prepared for production deployment on Render
-- Created render.yaml for automated deployment
-- Build process verified and optimized
 
 ## User Preferences
 
@@ -35,11 +43,12 @@ Preferred communication style: Simple, everyday language.
 
 **Animation**: Framer Motion provides smooth animations and transitions for quiz interactions, answer feedback, and screen transitions.
 
-**Design System**: Kahoot-inspired vibrant theme with:
-- Custom color palette for quiz answer buttons (red, blue, yellow, green)
-- Poppins font family for bold, modern typography
-- Full-screen viewport sections for immersive gameplay
-- Geometric shapes and high-contrast visual elements
+**Design System**: Tranquil Lily purple theme (dark mode only):
+- **Palette**: Deep purple (#4B3F6E), Medium purple (#6C5F8D), Lavender (#9C8CB9), Beige (#DCD7D5), Rose purple (#BA96C1)
+- **Layout**: Vertical list of answer options, white question cards
+- **Feedback**: Green (#7FD957) for correct, Red (#FF6B6B) for incorrect
+- **Typography**: System sans for clean readability
+- Full-screen immersive dark mode experience
 
 **PWA Features**: Service worker implementation for offline functionality, manifest.json for installability, and mobile-first responsive design.
 

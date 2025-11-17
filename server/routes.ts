@@ -97,6 +97,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         correctAnswer: question.correctAnswer,
         pointsEarned,
         currentScore: updatedSession.score,
+        previousScore: session.score,
       };
 
       if (question.explanation) {

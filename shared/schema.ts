@@ -103,6 +103,7 @@ export const quizResultSchema = z.object({
   correctAnswer: z.number(),
   pointsEarned: z.number(),
   currentScore: z.number(),
+  previousScore: z.number(),
   explanation: z.string().optional(),
 });
 

@@ -24,28 +24,26 @@ export class MemStorage implements IStorage {
   }
 
   private seedQuestions() {
-    // Carregar todas as 1.276 questões oficiais do CMS ANAC
-    const aviationQuestions: InsertQuestion[] = allQuestions.map(q => ({
-      question: q.question,
-      options: q.options,
-      correctAnswer: q.correctAnswer,
-      category: q.category,
-      difficulty: "medium",
-      explanation: "",
-      timeLimit: 30,
-      module: (q.module?.toLowerCase() || "misto") as QuizModule
-    }));
-
-    aviationQuestions.forEach(q => {
-      const id = randomUUID();
+    // Carregar todas as 1.270 questões oficiais do CMS ANAC com metadados corretos
+    // Usamos IDs estáveis baseados em módulo + número para evitar duplicação
+    allQuestions.forEach(q => {
+      // ID estável: "ess-1", "rpa-2", etc.
+      const module = (q.module?.toLowerCase() || "misto");
+      const id = `${module}-${q.id}`;
+      
       const question: Question = {
-        ...q,
         id,
-        module: q.module ?? "misto",
-        moduleDescription: q.moduleDescription ?? null,
-        explanation: q.explanation ?? null,
-        timeLimit: q.timeLimit ?? 20,
+        question: q.question,
+        options: q.options,
+        correctAnswer: q.correctAnswer,
+        category: q.category,
+        difficulty: "medium",  // Dados oficiais não têm dificuldade
+        explanation: null,  // Dados oficiais não têm explicação
+        timeLimit: 30,  // Tempo padrão de 30 segundos
+        module: module as QuizModule,
+        moduleDescription: null,
       };
+      
       this.questions.set(id, question);
     });
   }
