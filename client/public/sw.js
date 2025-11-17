@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aeroquiz-v1';
+const CACHE_NAME = 'aeroquiz-v2';
 const urlsToCache = [
   '/',
   '/index.html',
