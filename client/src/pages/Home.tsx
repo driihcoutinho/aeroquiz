@@ -1,16 +1,64 @@
 import { motion } from "framer-motion";
-import { Plane, Sparkles, Trophy, Target } from "lucide-react";
+import { Plane, Sparkles, Trophy, Target, RotateCcw, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { MODULES, MODULE_INFO, type QuizModule } from "@shared/schema";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { useState } from "react";
 
-interface HomeProps {
-  onStartQuiz: (module: QuizModule) => void;
-  isLoading?: boolean;
+interface SavedProgress {
+  module: QuizModule;
+  sessionId: string;
+  currentQuestionIndex: number;
+  correctAnswers: number;
+  timestamp: number;
 }
 
-export default function Home({ onStartQuiz, isLoading = false }: HomeProps) {
+interface HomeProps {
+  onStartQuiz: (module: QuizModule, continueProgress?: boolean) => void;
+  isLoading?: boolean;
+  savedProgress?: SavedProgress | null;
+  onClearProgress: () => void;
+}
+
+export default function Home({ onStartQuiz, isLoading = false, savedProgress, onClearProgress }: HomeProps) {
   const modules: QuizModule[] = ["ess", "rpa", "pss", "cga"];
+  const [showDialog, setShowDialog] = useState(false);
+  const [selectedModuleForStart, setSelectedModuleForStart] = useState<QuizModule | null>(null);
+
+  const handleModuleClick = (module: QuizModule) => {
+    // Verificar se há progresso salvo para este módulo
+    if (savedProgress && savedProgress.module === module) {
+      setSelectedModuleForStart(module);
+      setShowDialog(true);
+    } else {
+      onStartQuiz(module, false);
+    }
+  };
+
+  const handleContinue = () => {
+    if (selectedModuleForStart) {
+      onStartQuiz(selectedModuleForStart, true);
+      setShowDialog(false);
+    }
+  };
+
+  const handleStartNew = () => {
+    if (selectedModuleForStart) {
+      onClearProgress();
+      onStartQuiz(selectedModuleForStart, false);
+      setShowDialog(false);
+    }
+  };
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <motion.div
@@ -78,29 +126,40 @@ export default function Home({ onStartQuiz, isLoading = false }: HomeProps) {
             >
               <div className="space-y-3">
                 <p className="text-lg font-semibold text-foreground">Escolha um módulo:</p>
-                {modules.map((module, index) => (
-                  <motion.div
-                    key={module}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.6 + index * 0.1 }}
-                  >
-                    <Button
-                      size="lg"
-                      onClick={() => onStartQuiz(module)}
-                      disabled={isLoading}
-                      className="w-full px-8 py-6 text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl"
-                      data-testid={`button-module-${module}`}
+                {modules.map((module, index) => {
+                  const hasProgress = savedProgress && savedProgress.module === module;
+                  return (
+                    <motion.div
+                      key={module}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.6 + index * 0.1 }}
                     >
-                      <div className="flex flex-col items-start w-full">
-                        <span>{MODULE_INFO[module].name}</span>
-                        <span className="text-sm font-normal opacity-80">
-                          {MODULE_INFO[module].questionCount} questões
-                        </span>
-                      </div>
-                    </Button>
-                  </motion.div>
-                ))}
+                      <Button
+                        size="lg"
+                        onClick={() => handleModuleClick(module)}
+                        disabled={isLoading}
+                        className="w-full px-8 py-6 text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl relative"
+                        data-testid={`button-module-${module}`}
+                      >
+                        <div className="flex flex-col items-start w-full">
+                          <div className="flex items-center gap-2 w-full justify-between">
+                            <span>{MODULE_INFO[module].name}</span>
+                            {hasProgress && (
+                              <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-md">
+                                Em progresso
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-sm font-normal opacity-80">
+                            {MODULE_INFO[module].questionCount} questões
+                            {hasProgress && ` • Questão ${savedProgress.currentQuestionIndex + 1}`}
+                          </span>
+                        </div>
+                      </Button>
+                    </motion.div>
+                  );
+                })}
               </div>
               <p className="text-sm text-muted-foreground pt-2">
                 Teste seus conhecimentos em aviação!
@@ -120,6 +179,30 @@ export default function Home({ onStartQuiz, isLoading = false }: HomeProps) {
           </div>
         </Card>
       </motion.div>
+
+      <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
+        <AlertDialogContent className="bg-card border-border">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-foreground">Continuar de onde parou?</AlertDialogTitle>
+            <AlertDialogDescription className="text-muted-foreground">
+              Você tem progresso salvo neste módulo. Deseja continuar ou começar um novo quiz?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setShowDialog(false)} className="bg-secondary">
+              Cancelar
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={handleStartNew} className="bg-secondary hover:bg-secondary/80">
+              <RotateCcw className="w-4 h-4 mr-2" />
+              Começar Novo
+            </AlertDialogAction>
+            <AlertDialogAction onClick={handleContinue} className="bg-primary text-primary-foreground hover:bg-primary/90">
+              <Play className="w-4 h-4 mr-2" />
+              Continuar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

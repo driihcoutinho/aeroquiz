@@ -22,10 +22,17 @@ AeroQuiz is a Progressive Web Application (PWA) designed as an interactive aviat
   - Each module tracks its own correct/incorrect answers
   - Results screen shows module-specific performance
 - **Navigation**: "Início" button on all screens (Quiz, Results) for easy navigation
-- **Sistema Simplificado**: Removed Kahoot-style scoring system
+- **Progress Saving System**: Automatic progress tracking with localStorage
+  - Progress saved automatically when user leaves quiz
+  - Progress persists for 24 hours
+  - "Em progresso" badge shows on modules with saved progress
+  - Dialog prompts user to continue or start new quiz when returning
+  - Clear indication of current question on module button
+- **Sistema Simplificado**: Removed Kahoot-style scoring system and timer display
   - Durante quiz: apenas feedback "Correto!" ou "Incorreto"
   - Tela de resultados: mostra quantidade de acertos/erros e porcentagem por módulo
   - Sem cálculo de pontos baseado em tempo
+  - Timer removido da interface para experiência mais limpa
 - Automated question extraction pipeline using mammoth + regex parser
 - Gabaritos oficiais ANAC manually transcribed and validated
 - Prepared for production deployment on Render

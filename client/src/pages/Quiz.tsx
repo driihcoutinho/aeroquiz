@@ -9,11 +9,13 @@ interface QuizProps {
   questions: Question[];
   onAnswer: (questionIndex: number, selectedAnswer: number, timeSpent: number) => Promise<QuizResult>;
   onComplete: () => void;
+  onProgress?: (index: number, correctAnswers: number) => void;
+  initialQuestionIndex?: number;
   moduleName?: string;
 }
 
-export default function Quiz({ questions, onAnswer, onComplete, moduleName }: QuizProps) {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+export default function Quiz({ questions, onAnswer, onComplete, onProgress, initialQuestionIndex = 0, moduleName }: QuizProps) {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(initialQuestionIndex);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState<QuizResult | null>(null);
@@ -95,10 +97,16 @@ export default function Quiz({ questions, onAnswer, onComplete, moduleName }: Qu
       setStartTime(now);
       setTimeSpent(0);
       
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      const nextIndex = currentQuestionIndex + 1;
+      setCurrentQuestionIndex(nextIndex);
       setSelectedAnswer(null);
       setShowResult(false);
       setResult(null);
+      
+      // Salvar progresso
+      if (onProgress) {
+        onProgress(nextIndex, result?.isCorrect ? 1 : 0);
+      }
       // Refs resetados no useEffect após mudança de índice
     } else {
       onComplete();
@@ -133,15 +141,10 @@ export default function Quiz({ questions, onAnswer, onComplete, moduleName }: Qu
         </Button>
 
         <div className="text-foreground font-semibold text-lg" data-testid="text-progress">
-          {String(currentQuestionIndex + 1).padStart(2, '0')} of {String(totalQuestions).padStart(2, '0')}
+          {String(currentQuestionIndex + 1).padStart(2, '0')} / {String(totalQuestions).padStart(2, '0')}
         </div>
 
-        <div className="flex items-center gap-2 bg-accent/20 backdrop-blur-sm rounded-full px-3 py-1.5" data-testid="timer-display">
-          <Clock className="w-4 h-4 text-primary" />
-          <span className="text-foreground font-semibold text-sm">
-            {Math.ceil(timeRemaining)}
-          </span>
-        </div>
+        <div className="w-20"></div>
       </div>
 
       {/* Progress Bar */}
