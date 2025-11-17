@@ -15,6 +15,10 @@ AeroQuiz is a Progressive Web Application (PWA) designed as an interactive aviat
   - Purple gradient background (#4B3F6E)
   - White question cards with green/red feedback
   - Clean, minimal, professional aesthetic
+- **Sistema Simplificado**: Removed Kahoot-style scoring system
+  - Durante quiz: apenas feedback "✓ Correto!" ou "✗ Incorreto"
+  - Tela de resultados: mostra quantidade de acertos/erros e porcentagem
+  - Sem cálculo de pontos baseado em tempo
 - Automated question extraction pipeline using mammoth + regex parser
 - Gabaritos oficiais ANAC manually transcribed and validated
 - Prepared for production deployment on Render

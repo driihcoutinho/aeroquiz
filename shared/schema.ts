@@ -101,9 +101,6 @@ export type AnswerSubmission = z.infer<typeof answerSubmissionSchema>;
 export const quizResultSchema = z.object({
   isCorrect: z.boolean(),
   correctAnswer: z.number(),
-  pointsEarned: z.number(),
-  currentScore: z.number(),
-  previousScore: z.number(),
   explanation: z.string().optional(),
 });
 

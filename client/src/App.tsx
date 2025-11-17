@@ -21,7 +21,6 @@ type QuestionWithoutAnswer = Omit<Question, 'correctAnswer' | 'explanation'>;
 function QuizApp() {
   const [appState, setAppState] = useState<AppState>("home");
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [currentScore, setCurrentScore] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [questions, setQuestions] = useState<QuestionWithoutAnswer[]>([]);
   const [selectedModule, setSelectedModule] = useState<QuizModule>("misto");
@@ -48,7 +47,6 @@ function QuizApp() {
       }
       setSessionId(data.session.id);
       setQuestions(data.questions);
-      setCurrentScore(0);
       setCorrectAnswers(0);
       setAppState("quiz");
     },
@@ -67,7 +65,6 @@ function QuizApp() {
       return await response.json() as QuizResult;
     },
     onSuccess: (result) => {
-      setCurrentScore(result.currentScore);
       if (result.isCorrect) {
         setCorrectAnswers((prev) => prev + 1);
       }
@@ -107,7 +104,6 @@ function QuizApp() {
   const handleRestart = () => {
     setAppState("home");
     setSessionId(null);
-    setCurrentScore(0);
     setCorrectAnswers(0);
   };
 
@@ -130,7 +126,6 @@ function QuizApp() {
           questions={questions as Question[]}
           onAnswer={handleAnswer}
           onComplete={handleComplete}
-          currentScore={currentScore}
           moduleName={MODULE_INFO[selectedModule].name}
         />
       )}
@@ -145,7 +140,6 @@ function QuizApp() {
       
       {appState === "results" && (
         <Results
-          score={currentScore}
           correctAnswers={correctAnswers}
           totalQuestions={questions.length}
           onRestart={handleRestart}

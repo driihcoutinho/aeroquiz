@@ -9,11 +9,10 @@ interface QuizProps {
   questions: Question[];
   onAnswer: (questionIndex: number, selectedAnswer: number, timeSpent: number) => Promise<QuizResult>;
   onComplete: () => void;
-  currentScore: number;
   moduleName?: string;
 }
 
-export default function Quiz({ questions, onAnswer, onComplete, currentScore, moduleName }: QuizProps) {
+export default function Quiz({ questions, onAnswer, onComplete, moduleName }: QuizProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -235,21 +234,11 @@ export default function Quiz({ questions, onAnswer, onComplete, currentScore, mo
                       ? "bg-green-100 border-2 border-green-500"
                       : "bg-red-100 border-2 border-red-500"
                   }`} data-testid="feedback-result">
-                    <h3 className={`text-2xl font-bold mb-2 ${
+                    <h3 className={`text-2xl font-bold ${
                       result.isCorrect ? "text-green-900" : "text-red-900"
                     }`} data-testid="text-result-message">
-                      {result.isCorrect ? "Correto!" : "Incorreto"}
+                      {result.isCorrect ? "✓ Correto!" : "✗ Incorreto"}
                     </h3>
-                    <p className={`text-lg font-semibold ${
-                      result.isCorrect ? "text-green-800" : "text-red-800"
-                    }`} data-testid="text-points-earned">
-                      +{result.pointsEarned} pontos
-                    </p>
-                    <p className={`text-sm mt-2 ${
-                      result.isCorrect ? "text-green-700" : "text-red-700"
-                    }`} data-testid="text-score-display">
-                      Score: {result.previousScore} → {result.previousScore + result.pointsEarned}
-                    </p>
                   </div>
 
                   <div className="flex justify-center">
@@ -258,7 +247,7 @@ export default function Quiz({ questions, onAnswer, onComplete, currentScore, mo
                       className="bg-[hsl(var(--success))] hover:bg-[hsl(var(--success))]/90 text-white px-12 py-6 rounded-full text-lg font-semibold shadow-lg"
                       data-testid="button-next"
                     >
-                      {currentQuestionIndex < questions.length - 1 ? "Next" : "Ver Resultado"}
+                      {currentQuestionIndex < questions.length - 1 ? "Próxima" : "Ver Resultado"}
                     </Button>
                   </div>
                 </motion.div>

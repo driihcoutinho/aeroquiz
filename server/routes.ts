@@ -68,13 +68,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const isTimeout = selectedAnswer === null || selectedAnswer === -1;
       const isCorrect = !isTimeout && selectedAnswer >= 0 && selectedAnswer === question.correctAnswer;
-      
-      let pointsEarned = 0;
-      if (isCorrect) {
-        const maxPoints = 1000;
-        const timeBonus = Math.max(0, Math.min(1, (question.timeLimit - timeSpent) / question.timeLimit));
-        pointsEarned = Math.round(maxPoints * (0.5 + 0.5 * timeBonus));
-      }
 
       if (session.answers[questionIndex] !== "") {
         return res.status(400).json({ error: "Answer already submitted for this question" });
@@ -85,7 +78,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const updatedSession = await storage.updateQuizSession(sessionId, {
         currentQuestionIndex: questionIndex + 1,
-        score: session.score + pointsEarned,
         correctAnswers: session.correctAnswers + (isCorrect ? 1 : 0),
         answers: newAnswers,
         isComplete: questionIndex + 1 >= session.totalQuestions,
@@ -95,9 +87,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const result: QuizResult = {
         isCorrect,
         correctAnswer: question.correctAnswer,
-        pointsEarned,
-        currentScore: updatedSession.score,
-        previousScore: session.score,
       };
 
       if (question.explanation) {
