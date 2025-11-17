@@ -1,112 +1,148 @@
-# Design Guidelines: AeroQuiz - Aviation Quiz PWA
+# Design Guidelines - AeroQuiz PWA
 
-## Design Approach
-**Modern Quiz App - Tranquil Lily Theme**
-- Clean, professional quiz interface with purple gradient theme
-- Vertical list layout for answer options
-- Dark mode with elegant purple tones
-- Minimalist, distraction-free learning experience
+## Overview
+AeroQuiz é uma Progressive Web App (PWA) de quiz de aviação com design moderno e imersivo, utilizando uma **paleta amarela/escura** profissional com tema dark mode exclusivo.
 
-## Color Palette: Tranquil Lily
+## Color Palette
 
-### Primary Colors
-- **Deep Purple** (#4B3F6E): Main background
-- **Medium Purple** (#6C5F8D): Secondary elements, cards
-- **Soft Lavender** (#9C8CB9): Accents, hover states
-- **Light Beige** (#DCD7D5): Card backgrounds, text areas
-- **Rose Purple** (#BA96C1): Highlights, badges
+### Yellow/Dark Theme (Dark Mode Only)
 
-### Functional Colors
-- **Success Green** (#7FD957): Correct answers, progress bar
-- **Error Red** (#FF6B6B): Incorrect answers
-- **White** (#FFFFFF): Primary text on dark backgrounds
-- **Dark Text** (#2C2C2C): Text on light backgrounds
+**Background & Surfaces:**
+- Dark Navy `#192230` (210° 18% 12%) - Background principal
+- Dark Gray `#3d474e` (210° 13% 16%) - Cards e superfícies
+- Darker Gray `#2c2f38` (210° 10% 23%) - Elementos secundários
 
-## Core Design Elements
+**Primary Colors:**
+- Vibrant Yellow `#ffcd00` (48° 100% 50%) - Accent principal, botões, destaques
+- Dark Navy `#192230` - Texto sobre amarelo
 
-### Typography
-- **Primary Font**: Inter or System Sans (clean, modern readability)
-- **Headings**: text-2xl to text-3xl, font-semibold
-- **Body text**: text-base to text-lg
-- **Button text**: text-base, font-medium
-- High contrast for accessibility
+**Functional Colors:**
+- Success Green Light `#d1f4e0` - Background de respostas corretas
+- Success Green Border `#22c55e` - Bordas de respostas corretas
+- Success Green Dark `#15803d` - Texto de respostas corretas
+- Error Pink Light `#ffd4d4` - Background de respostas incorretas
+- Error Red Border `#ef4444` - Bordas de respostas incorretas
+- Error Red Dark `#991b1b` - Texto de respostas incorretas
+- Text Primary `#FAFAFA` (0° 0% 98%) - Texto principal
+- Text Secondary `#A6A6A6` (0° 0% 65%) - Texto secundário/muted
 
-### Layout System
-- **Spacing**: Consistent padding (p-6, p-8, gap-4)
-- **Max width**: max-w-2xl for quiz content
-- **Centered layout**: All content centered with padding
-- **Vertical flow**: Single column for mobile-first design
-- **Answer list**: Vertical stack of answer options (space-y-3)
+**Borders & Dividers:**
+- Border `#3a4149` (210° 10% 25%)
 
-### Component Library
+## Typography
 
-**A. Quiz Screen Structure**
-1. **Header Bar** (fixed top):
-   - Back button (left)
-   - Progress indicator: "02 of 10" (center)
-   - Timer with icon (right, purple badge)
-   - Background: Deep purple
+**Font Family:**
+- System fonts: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`
 
-2. **Progress Bar**:
-   - Linear green progress bar below header
-   - Width matches completion percentage
-   - Smooth animated transitions
+**Font Sizes:**
+- Título principal: 3rem (48px) - Ultra bold
+- Subtítulo: 2rem (32px) - Bold
+- Questão: 1.5rem (24px) - Semibold
+- Texto normal: 1rem (16px) - Regular
+- Texto pequeno: 0.875rem (14px) - Regular
 
-3. **Question Card**:
-   - White background card (rounded-3xl)
-   - Category badge at top ("General Knowledge")
-   - Question text: Large, centered, bold
-   - Generous padding for readability
+## Layout Principles
 
-4. **Answer Options**:
-   - Vertical list of 4 options
-   - Each option: Full-width rounded button
-   - States:
-     - Default: White with subtle border
-     - Hover: Light purple tint
-     - Selected Correct: Light green (#E8F5E9) with check icon
-     - Selected Incorrect: Light red (#FFEBEE) with X icon
-   - Icons: Check (✓) or X positioned at right
+### Answer Options Layout
+- **Vertical List**: Respostas dispostas verticalmente (layout limpo)
+- Cards espaçados com 12px de gap
+- Padding interno de 24px por opção
+- Border radius de 24px
+- Transição suave ao hover
 
-5. **Next Button**:
-   - Green button at bottom
-   - Rounded-full design
-   - Centered, prominent
-   - Only appears after answer selected
+### Quiz Screen Structure
 
-**B. Visual Feedback**
-- **Correct Answer**: 
-  - Light green background
-  - Green check icon
-  - Smooth fade-in animation
+**1. Header Bar (sticky top):**
+- Botão "Início" (esquerda) - Volta para home
+- Indicador de progresso: "05 / 391" (centro)
+- Sem timer visível (removido)
+- Background: Dark gray com transparência
 
-- **Incorrect Answer**:
-  - Light red background
-  - Red X icon
-  - Highlight correct answer in green
+**2. Progress Bar:**
+- Barra amarela linear abaixo do header
+- Width corresponde à porcentagem de conclusão
+- Transições suaves animadas
 
-### Animations
-- Subtle, smooth transitions (200-300ms)
-- Answer selection: Gentle scale effect
-- Progress bar: Smooth width transitions
-- Timer: Pulse effect when < 10 seconds
-- Question transitions: Fade in/out
+**3. Question Card:**
+- Background: Dark gray (#3d474e)
+- Badge de categoria no topo
+- Texto da questão: Grande, legível, bold
+- Padding generoso para leitura confortável
+- Border radius arredondado
 
-### Responsive Behavior
-- **Mobile-first**: Optimized for portrait phone
-- **Tablet/Desktop**: Same vertical layout, larger spacing
-- **Max width**: Constrained to max-w-2xl for readability
+**4. Answer Options:**
+- Lista vertical de 4 opções
+- Cada opção: Card full-width
+- Estados:
+  - Default: Dark gray com borda sutil
+  - Hover: Leve elevação
+  - Correto: Verde claro (#d1f4e0) com borda verde (#22c55e)
+  - Incorreto: Rosa claro (#ffd4d4) com borda vermelha (#ef4444)
+- Ícones: Check (✓) ou X posicionados à direita
 
-### Special Features
-- **Category tags**: Subtle gray badges
-- **Timer urgency**: Color shift to warning as time runs low
-- **Progress persistence**: Visual indicator of completion
-- **Accessibility**: High contrast, clear focus states
+**5. Next Button:**
+- Botão amarelo (#ffcd00) no fundo
+- Rounded, proeminente
+- Centralizado
+- Aparece após resposta selecionada
 
-### PWA Considerations
-- **Dark mode only**: Consistent purple theme
-- **No light mode**: App designed for dark environment
-- **Immersive**: Full-screen experience
-- **Splash screen**: Purple gradient with logo
+## Special Features
 
-**Key Principle**: Clean, focused, distraction-free quiz experience with elegant purple aesthetics. Every element serves a purpose without overwhelming the user.
+### Module Selection (Home Screen)
+- 4 botões de módulo independentes
+- Badge "Em progresso" em amarelo quando há progresso salvo
+- Indicação de questão atual (ex: "Questão 45")
+- Contagem total de questões por módulo
+
+### Progress Saving System
+- Badge amarelo "Em progresso" nos módulos
+- Dialog de retomada com 3 opções:
+  - Cancelar (secondary)
+  - Começar Novo (secondary com ícone)
+  - Continuar (primary amarelo com ícone)
+- Indicador visual da questão atual
+
+### Results Screen
+- Background: Dark navy (#192230)
+- Card central: Dark gray com borda
+- Troféu amarelo grande no topo
+- "Módulo Concluído!" em banner amarelo
+- Grid 2 colunas:
+  - Acertos: Verde claro com borda verde
+  - Erros: Rosa claro com borda vermelha
+- Dois botões:
+  - "Reiniciar Módulo" (primary amarelo)
+  - "Início" (outline)
+
+## Animations
+
+- Transições suaves (300ms)
+- Fade in/out para questões
+- Scale sutil ao hover em botões
+- Progress bar com easing suave
+- Dialog com fade + scale
+
+## Responsive Behavior
+
+- **Mobile-first**: Otimizado para retrato em celular
+- **Tablet/Desktop**: Mesma estrutura vertical, espaçamento maior
+- **Max width**: max-w-2xl para legibilidade
+- Cards adaptam padding em telas maiores
+
+## PWA Considerations
+
+- **Dark mode only**: Tema escuro consistente
+- **No light mode**: App projetado para ambiente escuro
+- **Imersivo**: Experiência full-screen
+- **Offline**: Service worker para uso sem conexão
+
+## Key Principles
+
+1. **Simplicidade**: Interface limpa, sem distrações
+2. **Clareza**: Feedback visual imediato e óbvio
+3. **Continuidade**: Sistema de salvamento automático de progresso
+4. **Modularidade**: Cada módulo é independente
+5. **Acessibilidade**: Alto contraste, estados de foco claros
+6. **Performance**: Transições suaves, sem lag
+
+**Filosofia de Design**: Experiência focada no aprendizado com estética profissional em amarelo/escuro. Cada elemento serve a um propósito sem sobrecarregar o usuário.
