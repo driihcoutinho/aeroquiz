@@ -2,6 +2,13 @@
 
 Progressive Web App (PWA) de quiz de aviação com 1.270 questões oficiais do CMS ANAC, especialmente desenvolvido para comissários de bordo.
 
+| | |
+|---|---|
+| **Questões** | 1.270 extraídas de 4 documentos oficiais CMS ANAC |
+| **Stack** | React 18 + TypeScript · Express · Vite · TailwindCSS |
+| **Tipo** | Progressive Web App — instalável e funcional offline |
+| **Rodar** | `npm install && npm run dev` |
+
 ## Visão Geral
 
 AeroQuiz é uma aplicação de quiz interativa que apresenta questões oficiais de aviação organizadas em 4 módulos especializados baseados nos documentos CMS ANAC. O sistema oferece feedback instantâneo, salvamento automático de progresso e design moderno em tema amarelo/escuro.
@@ -46,6 +53,59 @@ Cada módulo funciona de forma **independente** - você pode fazer um módulo po
 - **Dialog de retomada**: Pergunta se quer continuar ou começar novo
 - **Expiração**: Progresso mantido por 24 horas
 - **Indicador**: Mostra em qual questão você parou
+
+## Como rodar
+
+Requer Node.js 18 ou superior.
+
+```bash
+npm install
+```
+
+```bash
+npm run dev
+```
+
+A aplicação sobe em `http://localhost:5000` — API e cliente na mesma porta. Para usar outra, defina `PORT`:
+
+```bash
+PORT=3000 npm run dev
+```
+
+Build de produção:
+
+```bash
+npm run build && npm start
+```
+
+Verificação de tipos:
+
+```bash
+npm run check
+```
+
+## Arquitetura
+
+```
+client/          React 18 + TypeScript, servido pelo Vite em desenvolvimento
+  src/pages/     Home (seleção de módulo), Quiz, Results
+  src/components/  Componentes próprios + Shadcn/ui
+  public/sw.js   Service Worker — cache offline e atualização automática
+server/          Express + TypeScript
+  routes.ts      API de questões e progresso
+  storage.ts     Armazenamento em memória (interface pronta para PostgreSQL)
+  vite.ts        Middleware do Vite em dev, arquivos estáticos em produção
+shared/          Código compartilhado entre cliente e servidor
+  schema.ts      Schemas Zod — uma fonte de verdade para os dois lados
+  data/          1.270 questões e gabaritos já processados
+scripts/         Pipeline de extração dos DOCX oficiais da ANAC
+```
+
+O `shared/` existe para que cliente e servidor validem contra **o mesmo schema Zod**, sem duplicar tipo nem deixar contrato divergir.
+
+### O pipeline de extração
+
+As questões não foram digitadas à mão. Os scripts em `scripts/` leem os DOCX oficiais da ANAC com `mammoth`, separam enunciado e alternativas por regex, cruzam com os gabaritos transcritos e rejeitam o que não bate. As 11 questões descartadas (de 1.281) tinham defeito de formatação no documento de origem — o parser prefere descartar a inserir questão com alternativa errada.
 
 ## Tecnologias
 

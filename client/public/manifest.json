@@ -1,11 +1,11 @@
 {
   "name": "AeroQuiz - Quiz de Aviação",
   "short_name": "AeroQuiz",
-  "description": "Quiz interativo de aviação estilo Kahoot! para estudos de regulamentos, meteorologia e navegação",
+  "description": "Quiz com 1.270 questões oficiais do CMS ANAC para comissários de bordo, organizadas em 4 módulos: ESS, RPA, PSS e CGA.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#fefbff",
-  "theme_color": "#7c3aed",
+  "background_color": "#192230",
+  "theme_color": "#ffcd00",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -21,7 +21,11 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["education", "games"],
+  "categories": [
+    "education",
+    "games"
+  ],
   "screenshots": [],
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "lang": "pt-BR"
 }
