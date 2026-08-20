@@ -15,7 +15,7 @@ O AeroQuiz nasceu para uma pessoa: minha esposa, que estava no processo seletivo
 
 O material oficial do CMS ANAC são 1.281 questões espalhadas por quatro documentos DOCX, com os gabaritos em imagens separadas. Estudar assim significa alternar entre arquivos e conferir resposta por resposta, à mão. Em vez de imprimir tudo, escrevi um pipeline que lê os DOCX oficiais, separa enunciado e alternativas, cruza com os gabaritos e monta um quiz com correção instantânea e progresso salvo.
 
-Ela não passou no processo. O aplicativo continuou de pé, e outros comissários passaram a usar para estudar — foi assim que o projeto virou um case que publiquei no LinkedIn.
+Ela não passou no processo. O aplicativo continuou de pé, e outros comissários passaram a usar para estudar, foi assim que o projeto virou um case que publiquei no LinkedIn.
 
 ## Visão Geral
 
