@@ -9,6 +9,14 @@ Progressive Web App (PWA) de quiz de aviação com 1.270 questões oficiais do C
 | **Tipo** | Progressive Web App — instalável e funcional offline |
 | **Rodar** | `npm install && npm run dev` |
 
+## Por que existe
+
+O AeroQuiz nasceu para uma pessoa: minha esposa, que estava no processo seletivo de comissária de bordo da LATAM.
+
+O material oficial do CMS ANAC são 1.281 questões espalhadas por quatro documentos DOCX, com os gabaritos em imagens separadas. Estudar assim significa alternar entre arquivos e conferir resposta por resposta, à mão. Em vez de imprimir tudo, escrevi um pipeline que lê os DOCX oficiais, separa enunciado e alternativas, cruza com os gabaritos e monta um quiz com correção instantânea e progresso salvo.
+
+Ela não passou no processo. O aplicativo continuou de pé, e outros comissários passaram a usar para estudar — foi assim que o projeto virou um case que publiquei no LinkedIn.
+
 ## Visão Geral
 
 AeroQuiz é uma aplicação de quiz interativa que apresenta questões oficiais de aviação organizadas em 4 módulos especializados baseados nos documentos CMS ANAC. O sistema oferece feedback instantâneo, salvamento automático de progresso e design moderno em tema amarelo/escuro.
@@ -158,5 +166,4 @@ MIT
 
 ---
 
-**Desenvolvido para comissários de bordo**
-Estude com questões oficiais ANAC e alcance seus objetivos!
+Feito para uma comissária estudar. Acabou servindo a outras.
