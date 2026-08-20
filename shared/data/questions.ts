@@ -3,9 +3,24 @@
 // Gerado automaticamente - NÃO EDITAR MANUALMENTE
 // Total: 1270 questões
 
-import type { InsertQuestion } from '../schema';
+/**
+ * Forma real das questoes extraidas dos DOCX da ANAC.
+ *
+ * Nao e InsertQuestion: a fonte oficial nao traz dificuldade, explicacao nem
+ * tempo por questao — esses campos sao preenchidos com padroes no seed, em
+ * server/storage.ts. O id aqui e o numero sequencial dentro do modulo, nao a
+ * chave do banco, que so existe apos a insercao.
+ */
+export type SourceQuestion = {
+  id: number;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  category: string;
+  module: string;
+};
 
-export const questionsByModule = {
+export const questionsByModule: Record<'ESS' | 'RPA' | 'PSS' | 'CGA', SourceQuestion[]> = {
   ESS: [
   {
     "id": 1,
@@ -16524,9 +16539,9 @@ export const questionsByModule = {
     "module": "cga"
   }
 ]
-} as const;
+};
 
-export const allQuestions: InsertQuestion[] = [
+export const allQuestions: SourceQuestion[] = [
   ...questionsByModule.ESS,
   ...questionsByModule.RPA,
   ...questionsByModule.PSS,

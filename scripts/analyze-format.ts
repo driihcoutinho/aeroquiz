@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import mammoth from 'mammoth';
 
 async function analyze() {
-  const buffer = await fs.readFile('attached_assets/GRUPO 1 – ESS (Questões 001 a 400)_1763336978723.docx');
+  const buffer = await fs.readFile('attached_assets/fonte-grupo-1-ess.docx');
   const result = await mammoth.extractRawText({ buffer });
   const text = result.value;
   

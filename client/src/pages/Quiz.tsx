@@ -127,7 +127,6 @@ export default function Quiz({ questions, onAnswer, onComplete, onProgress, init
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Header */}
       <div className="bg-card/95 backdrop-blur-sm p-4 flex items-center justify-between sticky top-0 z-10 border-b border-border">
         <Button
           variant="ghost"
@@ -147,7 +146,6 @@ export default function Quiz({ questions, onAnswer, onComplete, onProgress, init
         <div className="w-20"></div>
       </div>
 
-      {/* Progress Bar */}
       <div className="bg-secondary h-2">
         <motion.div
           className="h-full bg-primary"
@@ -157,7 +155,6 @@ export default function Quiz({ questions, onAnswer, onComplete, onProgress, init
         />
       </div>
 
-      {/* Main Content */}
       <div className="flex-1 p-4 flex items-center justify-center">
         <div className="w-full max-w-2xl space-y-6">
           <AnimatePresence mode="wait">
@@ -169,7 +166,6 @@ export default function Quiz({ questions, onAnswer, onComplete, onProgress, init
               transition={{ duration: 0.3 }}
               className="space-y-6"
             >
-              {/* Question Card */}
               <div className="bg-card rounded-3xl p-8 shadow-xl">
                 <Badge variant="secondary" className="mb-4 text-xs" data-testid="badge-category">
                   {currentQuestion.category}
@@ -179,7 +175,6 @@ export default function Quiz({ questions, onAnswer, onComplete, onProgress, init
                 </h2>
               </div>
 
-              {/* Answer Options */}
               <div className="space-y-3">
                 {currentQuestion.options.map((option, index) => {
                   const isSelected = selectedAnswer === index;
@@ -226,7 +221,6 @@ export default function Quiz({ questions, onAnswer, onComplete, onProgress, init
                 })}
               </div>
 
-              {/* Result Feedback */}
               {showResult && result && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}

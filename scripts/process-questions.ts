@@ -113,10 +113,10 @@ async function main() {
   console.log('🚀 Iniciando processamento das questões CMS ANAC\n');
 
   const modules = [
-    { file: 'attached_assets/GRUPO 1 – ESS (Questões 001 a 400)_1763336978723.docx', name: 'ESS', count: 399 },
-    { file: 'attached_assets/GRUPO 2 – RPA (Questões 001 a 332)_1763338237383.docx', name: 'RPA', count: 332 },
-    { file: 'attached_assets/GRUPO 3 – PSS (Questões 001 a 300)_1763338964299.docx', name: 'PSS', count: 300 },
-    { file: 'attached_assets/GRUPO 4 – CGA (Questões 001 a 250)_1763339586877.docx', name: 'CGA', count: 250 }
+    { file: 'attached_assets/fonte-grupo-1-ess.docx', name: 'ESS', count: 399 },
+    { file: 'attached_assets/fonte-grupo-2-rpa.docx', name: 'RPA', count: 332 },
+    { file: 'attached_assets/fonte-grupo-3-pss.docx', name: 'PSS', count: 300 },
+    { file: 'attached_assets/fonte-grupo-4-cga.docx', name: 'CGA', count: 250 }
   ];
 
   const allQuestions: Question[] = [];

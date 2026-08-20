@@ -3,7 +3,7 @@ import { pgTable, text, varchar, integer, boolean, timestamp } from "drizzle-orm
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-// Module types - CMS ANAC oficial (1281 questões reais)
+// Modulos do CMS ANAC. Os totais por grupo somam as 1.281 questoes oficiais.
 export const MODULES = [
   "ess",    // GRUPO 1 - Emergência, Segurança e Sobrevivência (399 questões)
   "rpa",    // GRUPO 2 - Regulamentação da Profissão de Aeronauta (332 questões)
@@ -14,7 +14,6 @@ export const MODULES = [
 
 export type QuizModule = typeof MODULES[number];
 
-// Module metadata - CMS ANAC oficial
 export const MODULE_INFO: Record<QuizModule, { name: string; description: string; questionCount: number }> = {
   "ess": {
     name: "GRUPO 1 - ESS",
@@ -43,18 +42,17 @@ export const MODULE_INFO: Record<QuizModule, { name: string; description: string
   }
 };
 
-// Question schema
 export const questions = pgTable("questions", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   question: text("question").notNull(),
   options: text("options").array().notNull(), // Array of 4 options
   correctAnswer: integer("correct_answer").notNull(), // Index 0-3
-  category: text("category").notNull(), // e.g., "Meteorologia", "Navegação", "Regulamentos"
+  category: text("category").notNull(),
   difficulty: text("difficulty").notNull(), // "easy", "medium", "hard"
-  explanation: text("explanation"), // Optional explanation for the answer
+  explanation: text("explanation"),
   timeLimit: integer("time_limit").default(20).notNull(), // seconds
-  module: text("module").notNull().default("misto"), // Module this question belongs to
-  moduleDescription: text("module_description"), // Optional module-specific description
+  module: text("module").notNull().default("misto"),
+  moduleDescription: text("module_description"),
 });
 
 export const insertQuestionSchema = createInsertSchema(questions).omit({
@@ -64,19 +62,18 @@ export const insertQuestionSchema = createInsertSchema(questions).omit({
 export type InsertQuestion = z.infer<typeof insertQuestionSchema>;
 export type Question = typeof questions.$inferSelect;
 
-// Quiz Session schema
 export const quizSessions = pgTable("quiz_sessions", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   currentQuestionIndex: integer("current_question_index").default(0).notNull(),
   score: integer("score").default(0).notNull(),
   correctAnswers: integer("correct_answers").default(0).notNull(),
   totalQuestions: integer("total_questions").notNull(),
-  questionIds: text("question_ids").array().notNull(), // Array of question IDs
+  questionIds: text("question_ids").array().notNull(),
   answers: text("answers").array().notNull(), // Array of user answers (indices)
   isComplete: boolean("is_complete").default(false).notNull(),
   startedAt: timestamp("started_at").defaultNow().notNull(),
   completedAt: timestamp("completed_at"),
-  module: text("module").notNull().default("misto"), // Selected module for this quiz
+  module: text("module").notNull().default("misto"),
 });
 
 export const insertQuizSessionSchema = createInsertSchema(quizSessions).omit({
@@ -87,7 +84,6 @@ export const insertQuizSessionSchema = createInsertSchema(quizSessions).omit({
 export type InsertQuizSession = z.infer<typeof insertQuizSessionSchema>;
 export type QuizSession = typeof quizSessions.$inferSelect;
 
-// Answer submission schema
 export const answerSubmissionSchema = z.object({
   sessionId: z.string(),
   questionIndex: z.number(),
@@ -97,7 +93,6 @@ export const answerSubmissionSchema = z.object({
 
 export type AnswerSubmission = z.infer<typeof answerSubmissionSchema>;
 
-// Quiz result schema (for frontend)
 export const quizResultSchema = z.object({
   isCorrect: z.boolean(),
   correctAnswer: z.number(),
@@ -106,7 +101,6 @@ export const quizResultSchema = z.object({
 
 export type QuizResult = z.infer<typeof quizResultSchema>;
 
-// Quiz start request schema
 export const quizStartRequestSchema = z.object({
   module: z.enum(MODULES).optional().default("misto"),
 });

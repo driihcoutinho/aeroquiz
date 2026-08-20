@@ -201,22 +201,22 @@ async function main() {
 
   const modules = [
     {
-      file: 'attached_assets/GRUPO 1 – ESS (Questões 001 a 400)_1763336978723.docx',
+      file: 'attached_assets/fonte-grupo-1-ess.docx',
       name: 'ESS' as const,
       expected: 399  // 400 - 1 (questão 395 excluída)
     },
     {
-      file: 'attached_assets/GRUPO 2 – RPA (Questões 001 a 332)_1763338237383.docx',
+      file: 'attached_assets/fonte-grupo-2-rpa.docx',
       name: 'RPA' as const,
       expected: 332
     },
     {
-      file: 'attached_assets/GRUPO 3 – PSS (Questões 001 a 300)_1763338964299.docx',
+      file: 'attached_assets/fonte-grupo-3-pss.docx',
       name: 'PSS' as const,
       expected: 300
     },
     {
-      file: 'attached_assets/GRUPO 4 – CGA (Questões 001 a 250)_1763339586877.docx',
+      file: 'attached_assets/fonte-grupo-4-cga.docx',
       name: 'CGA' as const,
       expected: 250
     }
@@ -245,16 +245,31 @@ async function main() {
 // Gerado automaticamente - NÃO EDITAR MANUALMENTE
 // Total: ${totalQuestions} questões
 
-import type { InsertQuestion } from '../schema';
+/**
+ * Forma real das questoes extraidas dos DOCX da ANAC.
+ *
+ * Nao e InsertQuestion: a fonte oficial nao traz dificuldade, explicacao nem
+ * tempo por questao — esses campos sao preenchidos com padroes no seed, em
+ * server/storage.ts. O id aqui e o numero sequencial dentro do modulo, nao a
+ * chave do banco, que so existe apos a insercao.
+ */
+export type SourceQuestion = {
+  id: number;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  category: string;
+  module: string;
+};
 
-export const questionsByModule = {
+export const questionsByModule: Record<'ESS' | 'RPA' | 'PSS' | 'CGA', SourceQuestion[]> = {
   ESS: ${JSON.stringify(questionsByModule.ESS, null, 2)},
   RPA: ${JSON.stringify(questionsByModule.RPA, null, 2)},
   PSS: ${JSON.stringify(questionsByModule.PSS, null, 2)},
   CGA: ${JSON.stringify(questionsByModule.CGA, null, 2)}
-} as const;
+};
 
-export const allQuestions: InsertQuestion[] = [
+export const allQuestions: SourceQuestion[] = [
   ...questionsByModule.ESS,
   ...questionsByModule.RPA,
   ...questionsByModule.PSS,
